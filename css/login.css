@@ -83,6 +83,11 @@ main#main{
     font-size: 4rem;
 }
 
+.logo-container #bold_2{
+    font-weight: bold;
+    font-size: 3rem;
+}
+
 .logo-container small{
     font-size: 1.3rem;
 }
@@ -172,12 +177,17 @@ main#main{
 .forgot{
     display: flex;
     justify-content: flex-end;
+    margin-right: 0.75rem;
 }
 .forgot .forgotpass{
     border: none;
     outline: none;
     background-color: white;
     font-size: 1rem;
+}
+
+.forgot .forgotpass:hover{
+    color: var(--Torea_Bay);
 }
 
 /* Sign up */
@@ -191,9 +201,31 @@ main#main{
     outline: none;
     font-weight: bold;
     transition: 0.5s;
+    border: none;
 }
 
 .center-button #Sign-in:hover{
     background-color: white;
     color: var(--Torea_Bay);
+    border: 1px solid var(--Torea_Bay);
+}
+
+/*Forgot Password*/
+#forgot-pass-section{
+    display: none;
+}
+
+.center-button #submit-pass{
+    background-color: var(--Torea_Bay);
+    color: white;
+    outline: none;
+    font-weight: bold;
+    transition: 0.5s;
+    border: none;
+}
+
+.center-button #submit-pass:hover{
+    background-color: white;
+    color: var(--Torea_Bay);
+    border: 1px solid var(--Torea_Bay);
 }

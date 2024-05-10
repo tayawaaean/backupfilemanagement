@@ -29,3 +29,8 @@ document.getElementById("Signup").addEventListener("click", function() {
     document.getElementById("login-section").style.display = "none";
     document.getElementById("signup-section").style.display = "block";
 });
+
+document.getElementById("forgotpass").addEventListener("click", function() {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("forgot-pass-section").style.display = "block";
+});

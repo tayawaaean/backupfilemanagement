@@ -117,7 +117,7 @@ header("location:index.php?page=home");
             },
             success:function(resp){
                 if(resp == 1){
-                    // Password reset successful, redirect or show success message
+                    // Password reset successful, redirect or show successs message
                     // For now, just refresh the page
                     location.reload();
                 }else{
