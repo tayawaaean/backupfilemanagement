@@ -121,7 +121,7 @@ header("location:index.php?page=home");
             },
             success:function(resp){
                 if(resp == 1){
-                    location.reload('index.php?page=home');
+                    location.reload('login.php');
                 }else{
                     $('#register-form').prepend('<div class="alert alert-danger">Registration failed. Please try again.</div>')
                     $('#register-form button[type="button"]').removeAttr('disabled').html('Register');

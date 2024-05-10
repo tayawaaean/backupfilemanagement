@@ -17,17 +17,85 @@ Class Action {
 	
 	function login(){
 		extract($_POST);
-		$qry = $this->db->query("SELECT * FROM users where username = '".$username."' and password = '".$password."' ");
+		$password = md5($password); // Encrypt the input password using MD5 encryption
+	
+		$qry = $this->db->query("SELECT * FROM users where username = '".$username."' ");
 		if($qry->num_rows > 0){
-			foreach ($qry->fetch_array() as $key => $value) {
-				if($key != 'passwors' && !is_numeric($key))
-					$_SESSION['login_'.$key] = $value;
+			$user = $qry->fetch_assoc();
+			// Check if the stored password matches the input password after decoding it
+			if($user['password'] == $password){
+				foreach ($user as $key => $value) {
+					if($key != 'password' && !is_numeric($key))
+						$_SESSION['login_'.$key] = $value;
+				}
+				return 1; // Login successful
+			}else{
+				return 2; // Incorrect password
 			}
-			return 1;
 		}else{
-			return 2;
+			return 3; // User not found
 		}
 	}
+	
+
+	function register(){
+		extract($_POST);
+		// Encrypt the password using MD5 encryption
+		$password = md5($password);
+	
+		// Check if the username already exists
+		$check = $this->db->query("SELECT * FROM users where username ='".$username."'")->num_rows;
+		if($check > 0){
+			// If username already exists, return a status indicating failure
+			return 2; // Status 2 indicates username already exists
+		} else {
+			// If username doesn't exist, proceed with the registration process
+			$data = " name ='".$name."' ";
+			$data .= ", username ='".$username."' ";
+			$data .= ", password ='".$password."' ";
+			// Set the type column to 0
+			$data .= ", type = 0 ";
+			// Insert the user data into the users table
+			$save = $this->db->query("INSERT INTO users set ".$data);
+			if($save){
+				// If registration is successful, return a status indicating success
+				return 1; // Status 1 indicates successful registration
+			}
+		}
+	}
+	
+	function forgot_password(){
+		extract($_POST);
+	
+		// Check if the username exists
+		$check = $this->db->query("SELECT * FROM users where username ='".$username."'")->num_rows;
+		if($check > 0){
+			// If username exists, proceed with changing the password
+			if($new_password === $confirm_new_password){
+				// Encrypt the new password using MD5 encryption
+				$new_password = md5($new_password);
+	
+				// Update the user's password in the database
+				$update = $this->db->query("UPDATE users SET password ='".$new_password."' WHERE username ='".$username."'");
+				if($update){
+					// If password update is successful, return a status indicating success
+					return 1; // Status 1 indicates successful password reset
+				} else {
+					// If password update fails, return a status indicating failure
+					return 3; // Status 3 indicates password reset failed
+				}
+			} else {
+				// If new password and confirm new password do not match, return a status indicating failure
+				return 2; // Status 2 indicates new password and confirm new password mismatch
+			}
+		} else {
+			// If username doesn't exist, return a status indicating failure
+			return 4; // Status 4 indicates username does not exist
+		}
+	}
+	
+	
+
 	function logout(){
 		session_destroy();
 		foreach ($_SESSION as $key => $value) {
@@ -141,7 +209,6 @@ Class Action {
 		extract($_POST);
 		$data = " name = '$name' ";
 		$data .= ", username = '$username' ";
-		$data .= ", password = '$password' ";
 		$data .= ", type = '$type' ";
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO users set ".$data);
@@ -151,5 +218,5 @@ Class Action {
 		if($save){
 			return 1;
 		}
-	}
+	}	
 }
