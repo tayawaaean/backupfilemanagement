@@ -1,0 +1,74 @@
+/* ===========================================
+# User tab 
+   ===========================================*/ 
+
+#new_user{
+    margin-bottom: 10px;
+    background-color: rgb(19, 175, 90);
+    border: none;
+}
+
+#new_user:hover{
+    background-color: rgb(15, 132, 68);
+}
+
+#new_user:active{
+    background-color: rgb(19, 175, 90);
+}
+
+.edit_user{
+    margin-right: 5px;
+}
+
+.delete_user{
+    background-color: rgb(145, 40, 40);
+    border: none
+}
+
+.delete_user:hover{
+    background-color: rgb(110, 30, 30);
+}
+
+.info_table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+}
+
+.info_table thead tr {
+    background-color: rgb(34, 109, 189);
+    color: #ffffff;
+    text-align: left;
+}
+
+.info_table th, .info_table td {
+    padding: 12px 15px;
+}
+
+.info_table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.info_table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.info_table tbody tr:last-of-type {
+    border-bottom: 2px solid rgb(34, 109, 189);
+}
+
+.container_card{
+    min-height: 650px;
+    overflow-y: auto;
+}
+.container-fluid{
+    margin-top: 10px;
+}
+
+
+/* ===========================================
+# User modal 
+   ===========================================*/ 
