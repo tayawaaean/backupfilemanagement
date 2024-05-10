@@ -1,0 +1,199 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/*Color Palette*/
+:root {
+    --Torea_Bay: #15169A;
+    --Stark_White: #E7E0C6;
+    --Golden_Dream: #ECD531;
+    --Falcon: #7B666C;
+  }
+
+body{
+    width: 100%;
+    height: calc(100%);
+    /*background: #007bff;*/
+}
+main#main{
+    width:100%;
+    height: calc(100%);
+    background:white;
+}
+#login-right{
+    position: absolute;
+    right:0;
+    width:40%;
+    height: calc(100%);
+    background-color: var(--Stark_White);
+    display: flex;
+    align-items: center;
+}
+#login-left{
+    position: absolute;
+    left:0;
+    width:60%;
+    height: calc(100%);
+    background:#00000061;
+    display: flex;
+    align-items: center;
+}
+#login-right .card{
+    margin: auto;
+    border: none;
+    border-radius: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+}
+.logo {
+    margin: auto;
+    font-size: 8rem;
+    background: white;
+    padding: .5em 0.8em;
+    border-radius: 50% 50%;
+    color: #000000b3;
+}
+
+.logo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container .text{
+    width: 100%;
+    justify-content: start;
+    margin: 1rem 0 2.5rem 0;
+}
+
+.logo-container p{
+    margin: 0;
+    padding: 0;
+    font-size: 3rem;
+    color: var(--Torea_Bay);
+    font-family: "Raleway";
+    line-height: 1;
+}
+
+.logo-container #bold{
+    font-weight: bold;
+    font-size: 4rem;
+}
+
+.logo-container small{
+    font-size: 1.3rem;
+}
+
+/* Form Designs */
+.form-group{
+    position:relative;
+}
+
+.form-group input{
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid var(--Torea_Bay);
+    background-color: white;
+    border-radius: 0.7rem;
+    outline: none;
+    font-size: 1em;
+}
+
+.form-group span{
+    position: absolute;
+    left: 0;
+    pointer-events: none;
+    font-size: 1em;
+    color: lightgray;
+    padding: 12px;
+    transition: 0.5s;
+}
+
+.form-group input:focus ~span, .form-group input:valid ~span{
+    color: var(--Torea_Bay);
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.8em;
+    padding: 0 10px;
+    background: white;
+    border-left: 2px solid var(--Torea_Bay);
+    border-right: 2px solid var(--Torea_Bay);
+    letter-spacing: 0.2em;
+    font-weight: bold;
+}
+.form-group input:focus, .form-group input:valid{
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+}
+
+.center-button{
+    display: flex;
+    width: 100%;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+.center-button button{
+    font-size: 1.2rem;
+    width: 100%;
+    margin-top: 1.2rem;
+    margin-bottom: 1.5rem;
+
+}
+
+.center-button #Login{
+    margin-right: 5px;
+    background-color: var(--Torea_Bay);
+    color: white;
+    outline: none;
+    transition: 0.5s;
+    
+}
+.center-button #Signup{
+    margin-left: 5px;
+    background-color: white;
+    color: var(--Torea_Bay);
+    border: 1px solid var(--Torea_Bay);
+    outline: none;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.center-button #Signup:hover{
+    background-color: var(--Torea_Bay);
+    color: white;
+}
+
+.center-button #Login:hover{
+    background-color: white;
+    color: var(--Torea_Bay);
+}
+
+.forgot{
+    display: flex;
+    justify-content: flex-end;
+}
+.forgot .forgotpass{
+    border: none;
+    outline: none;
+    background-color: white;
+    font-size: 1rem;
+}
+
+/* Sign up */
+#signup-section{
+    display: none;
+}
+
+.center-button #Sign-in{
+    background-color: var(--Torea_Bay);
+    color: white;
+    outline: none;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.center-button #Sign-in:hover{
+    background-color: white;
+    color: var(--Torea_Bay);
+}
