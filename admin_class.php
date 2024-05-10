@@ -31,69 +31,31 @@ Class Action {
 				return 1; // Login successful
 			}else{
 				return 2; // Incorrect password
-			}
+			}	
 		}else{
 			return 3; // User not found
 		}
 	}
 	
-
 	function register(){
 		extract($_POST);
-		// Encrypt the password using MD5 encryption
-		$password = md5($password);
-	
-		// Check if the username already exists
-		$check = $this->db->query("SELECT * FROM users where username ='".$username."'")->num_rows;
-		if($check > 0){
-			// If username already exists, return a status indicating failure
-			return 2; // Status 2 indicates username already exists
+		// Check if username already exists
+		$check_username = $this->db->query("SELECT * FROM users WHERE username = '".$username."'");
+		if($check_username->num_rows > 0){
+			return 2; // Username already exists
 		} else {
-			// If username doesn't exist, proceed with the registration process
-			$data = " name ='".$name."' ";
-			$data .= ", username ='".$username."' ";
-			$data .= ", password ='".$password."' ";
-			// Set the type column to 0
-			$data .= ", type = 0 ";
-			// Insert the user data into the users table
-			$save = $this->db->query("INSERT INTO users set ".$data);
-			if($save){
-				// If registration is successful, return a status indicating success
-				return 1; // Status 1 indicates successful registration
-			}
-		}
-	}
-	
-	function forgot_password(){
-		extract($_POST);
-	
-		// Check if the username exists
-		$check = $this->db->query("SELECT * FROM users where username ='".$username."'")->num_rows;
-		if($check > 0){
-			// If username exists, proceed with changing the password
-			if($new_password === $confirm_new_password){
-				// Encrypt the new password using MD5 encryption
-				$new_password = md5($new_password);
-	
-				// Update the user's password in the database
-				$update = $this->db->query("UPDATE users SET password ='".$new_password."' WHERE username ='".$username."'");
-				if($update){
-					// If password update is successful, return a status indicating success
-					return 1; // Status 1 indicates successful password reset
-				} else {
-					// If password update fails, return a status indicating failure
-					return 3; // Status 3 indicates password reset failed
-				}
+			// Encrypt the password using MD5 encryption
+			$password = md5($password);
+			// Insert user data into the database
+			$insert_query = "INSERT INTO users (name, username, password) VALUES ('$name', '$username', '$password')";
+			$insert = $this->db->query($insert_query);
+			if($insert){
+				return 1; // Registration successful
 			} else {
-				// If new password and confirm new password do not match, return a status indicating failure
-				return 2; // Status 2 indicates new password and confirm new password mismatch
+				return 0; // Registration failed
 			}
-		} else {
-			// If username doesn't exist, return a status indicating failure
-			return 4; // Status 4 indicates username does not exist
 		}
 	}
-	
 	
 
 	function logout(){

@@ -72,29 +72,31 @@
 						</div>
 					</div>
 
-  					<form id="signup-form" >
-					  	<div class="form-group">
-  							<input type="text" id="name" name="name" required>
-							<span>Name</span>
-  						</div>
+					<form id="signup-form">
+				<div class="form-group">
+					<input type="text" id="name" name="name" required>
+					<span>Name</span>
+				</div>
 
-						<div class="form-group">
-  							<input type="text" id="email" name="email" required>
-							<span>Email</span>
-  						</div>
+				<div class="form-group">
+					<input type="text" id="username" name="username" required>
+					<span>Username</span>
+				</div>
 
-  						<div class="form-group">
-  							<input type="text" id="username2" name="username2" required>
-							<span>Username</span>
-  						</div>
-  						<div class="form-group">
-  							<input type="password" id="password2" name="password2" required>
-							  <span>Password</span>
-  						</div>
-						<div class="center-button">
-							<button class="btn-sm col-md-12" id= "Sign-in" type="submit">Sign Up</button>
-						</div>
-  					</form>
+				<div class="form-group">
+					<input type="password" id="password" name="password" required>
+					<span>Password</span>
+				</div>
+
+				<div class="form-group">
+					<input type="password" id="confirm_password" name="confirm_password" required>
+					<span>Confirm Password</span>
+				</div>
+
+				<div class="center-button">
+					<button class="btn-sm col-md-12" id="Sign-in" type="submit">Sign Up</button>
+				</div>
+			</form>
 
 					<div class="forgot">
 						<text>Already have an account?&nbsp</text>
@@ -109,5 +111,36 @@
 
 </body>
 
-<script src= "./js/login.js"></script>	
+<script src= "./js/login.js"></script>
+<script>
+$('#signup-form').submit(function(e) {
+    e.preventDefault();
+    $('#Sign-in').attr('disabled', true).html('Signing Up...');
+    if ($(this).find('.alert-danger').length > 0)
+        $(this).find('.alert-danger').remove();
+    $.ajax({
+        url: 'ajax.php?action=register',
+        method: 'POST',
+        data: $(this).serialize(),
+        error: function(err) {
+            console.log(err);
+            $('#Sign-in').removeAttr('disabled').html('Sign Up');
+        },
+        success: function(resp) {
+            if (resp.trim() == '1') { // Changed to check if the response is '1'
+                // Redirect to login page or display success message
+                window.location.href = 'login.php'; // Redirect to login page
+            } else if (resp.trim() == '2') { // Check if response is '2' for existing username
+                $('#signup-form').prepend('<div class="alert alert-danger">Username already exists. Please choose another username.</div>');
+                $('#Sign-in').removeAttr('disabled').html('Sign Up');
+            } else { // If response is neither '1' nor '2', display generic error message
+                $('#signup-form').prepend('<div class="alert alert-danger">Registration failed. Please try again.</div>');
+                $('#Sign-in').removeAttr('disabled').html('Sign Up');
+            }
+        }
+    });
+});
+
+</script>
+
 </html>
