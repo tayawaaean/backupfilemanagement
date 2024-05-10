@@ -1,46 +1,64 @@
-<?php 
-
-?>
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Personal Information</title>
     <!-- Add Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Font Awesome Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
     <!-- Add custom CSS -->
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         .container {
             margin-top: 20px;
             max-width: 2000px;
-            background-color: #f9f9f9;
+            height: 750px;
+            background-color: #82bfff;
             padding: 20px;
             border-radius: 10px;
             display: flex;
         }
 
         .left-section {
-            flex: 1;
+            flex: 1.2;
             padding-right: 20px;
+            
         }
 
         .right-section {
             flex: 1;
             padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .profile-picture-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
         .profile-picture {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ccc;
+            border: 3px solid white;
             position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 2); 
         }
+
 
         .edit-icon {
             position: absolute;
@@ -64,6 +82,13 @@
 
         .personal-info label {
             font-weight: bold;
+            color: white;
+            font-size: 17px;
+        }
+        .right-section label{
+            font-weight: bold;
+            color: white;
+            font-size: 17px;
         }
 
         .form-control {
@@ -71,6 +96,8 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            height: 50px;
+            background-color: #FFE6AC;;
         }
 
         .btn-primary {
@@ -80,6 +107,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            align-self: flex-end;
         }
 
         .btn-primary:hover {
@@ -92,7 +120,7 @@
     <div class="left-section">
         <div class="profile-picture-container">
             <img src="default_profile_picture.jpg" alt="Profile Picture" class="profile-picture">
-            <button class="edit-icon"><i class="fas fa-edit"></i></button>
+            <button class="edit-icon"><i class="far fa-edit"></i></button>
         </div>
         <div class="personal-info">
             <div class="form-group">
@@ -113,15 +141,16 @@
             </div>
         </div>
     </div>
+    
     <div class="right-section">
         <div class="form-group">
             <label for="address">Address:</label>
-            <textarea class="form-control" id="address" name="address"></textarea>
+            <input type="text" class="form-control" id="job_title" name="job_title">
         </div>
         <div class="form-group">
-                <label for="job_title">Job Title:</label>
-                <input type="text" class="form-control" id="job_title" name="job_title">
-            </div>
+            <label for="job_title">Job Title:</label>
+            <input type="text" class="form-control" id="job_title" name="job_title">
+        </div>
         <div class="form-group">
             <label for="birthday">Birthday:</label>
             <input type="date" class="form-control" id="birthday" name="birthday">
@@ -143,5 +172,9 @@
                 <option value="widowed">Widowed</option>
             </select>
         </div>
+        <!-- Save button -->
+        <button class="btn-primary">Save</button>
     </div>
 </div>
+</body>
+</html>
