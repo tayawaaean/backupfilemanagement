@@ -1,0 +1,561 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    /* ===== Colors ===== */
+    --primary-color: #0E4BF1;
+    --panel-color: #FFF;
+    --text-color: #000;
+    --black-light-color: #707070;
+    --border-color: #e6e5e5;
+    --toggle-color: #DDD;
+    --box1-color: #4DA3FF;
+    --box2-color: #FFE6AC;
+    --box3-color: #E7D1FC;
+    --title-icon-color: #fff;
+    
+    /* ====== Transition ====== */
+    --tran-05: all 0.5s ease;
+    --tran-03: all 0.3s ease;
+    --tran-03: all 0.2s ease;
+}
+
+body{
+    min-height: 100vh;
+    background-color: whitesmoke;
+}
+body.dark{
+    --primary-color: #3A3B3C;
+    --panel-color: #242526;
+    --text-color: #CCC;
+    --black-light-color: #CCC;
+    --border-color: #4D4C4C;
+    --toggle-color: #FFF;
+    --box1-color: #3A3B3C;
+    --box2-color: #3A3B3C;
+    --box3-color: #3A3B3C;
+    --title-icon-color: #CCC;
+}
+/* === Custom Scroll Bar CSS === */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #0E4BF1;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0E4BF1;
+}
+
+body.dark::-webkit-scrollbar-thumb:hover,
+body.dark .activity-data::-webkit-scrollbar-thumb:hover{
+    background: #3A3B3C;
+}
+
+h2{
+    font-size: 50px;
+    font-weight: bold;
+    color: #0B360A;
+    font-family: montserrat;
+}
+
+.dash-content{
+    margin: 40px;
+    height: 100%;
+}
+
+.dash-content .title{
+    display: flex;
+    align-items: center;
+    margin: 0px 0 30px 0;
+    justify-content: space-between;
+}
+.dash-content .title i{
+    position: relative;
+    height: 35px;
+    width: 35px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+.dash-content .title .text{
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-left: 10px;
+}
+.buttons{
+    background-color: white;
+    margin-left: auto;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+
+.buttons button {
+    border-color: #DDD;
+    border-radius: 15px; /* Adjust the value as needed to make the button oval */
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    color:#000;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid #DDD;
+}
+.table th {
+    background-color: lightblue;
+    color: black;
+    padding: 10px;
+    text-align: left;
+    border-right: 1px solid #DDD;
+}
+
+/* Adjust the minimum width as needed */
+.table th:nth-child(2), 
+.table th:nth-child(3) {
+    min-width: 80px; /* Adjust according to your needs */
+}
+
+.table td:first-child{
+    border-left: 1px solid #DDD;
+}
+.table td{
+    padding: 10px;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    color: #000;
+}
+
+hr {
+    margin-top: -30px;
+    margin-bottom: 40px;
+    border-top: 1px solid #DDD;
+}
+.text{
+    display: flex;
+    flex-direction: column;
+}
+.dash-content .boxes {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dash-content .boxes > * {
+    flex: 0 0 calc(33.33% - 20px); /* Adjust margin as needed */
+    margin: 10px; /* Set margin between items */
+}
+
+.dash-content .boxes .box{
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    width: calc(100% / 2 - 15px);
+    padding: 24px;
+    background-color: white;
+    transition: var(--tran-05);
+    grid-gap: 24px;
+}
+.boxes .box i{
+    background: lightblue;
+    font-size: 36px;
+    color: blue;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.boxes .box i2{
+    background: #fff2c6;
+    font-size: 36px;
+    color: #ffce26;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.boxes .box .text{
+    white-space: nowrap;
+    font-size: 18px;
+    color: var(--text-color);
+
+}
+.boxes .box .number{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+    color: var(--text-color);
+}
+.boxes .box.box2{
+    background-color: white;
+}
+.boxes .box.box3{
+    background-color: white;
+}
+.dash-content .activity .activity-data{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.activity .activity-data{
+    display: flex;
+}
+.activity-data .data{
+    display: flex;
+    flex-direction: column;
+    margin: 0 15px;
+}
+.activity-data .data-title{
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--black-light-color);
+}
+.activity-data .data .data-list{
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 20px;
+    white-space: nowrap;
+    color: var(--text-color);
+}
+
+.container {
+    flex-basis: calc(50% - 20px); /* 50% width with margin included */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    height: 500px;
+    max-width: 100%;
+}
+
+.bottom-search .search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.bottom-search input[type="text"] {
+    padding: 8px 30px 8px 50px; /* Adjust padding as needed */
+    border: 1px solid var(--border-color);
+    background-color: var(--panel-color);
+    border-radius: 25px;
+    height: 100%;
+    width: 150px; /* Adjust width as needed */
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 400;
+    outline: none;
+}
+
+.bottom-search input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color); /* Add focus style */
+}
+
+.bottom-search .search i {
+    position: absolute;
+    left: 10px; /* Adjust position as needed */
+    color: var(--black-light-color); /* Adjust icon color */
+    pointer-events: none; /* Ensure the icon doesn't interfere with input events */
+}
+
+/* Add this CSS to your existing stylesheet */
+
+.nav-links li:hover {
+    background-color: skyblue; /* Change background color on hover */
+    border-radius: 35px;
+}
+
+.nav-links li.active {
+    width: 100%;
+    color: var(--color-primary);
+    background-color: var(--color-light);
+    margin-left: 0;
+}
+
+.nav-links li:hover .link-name,
+.nav-links li.active .link-name {
+    color: white; /* Change text color on hover and active */
+}
+
+.dashboard-table-wrapper {
+    max-height: 390px;
+    overflow-y: auto;
+}
+
+.dashboard-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #0E4BF1;
+}
+
+.menu {
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: royalblue;
+    border: 1px #363a43 solid;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #9fa5b5;
+    position: absolute;
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 1;
+}
+
+.menu li {
+    padding: 0.3em 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+    color: whitesmoke;
+}
+
+.menu li:hover {
+    background: darkblue;
+}
+
+.active {
+    background: darkblue;
+}
+
+.menu-open {
+    display: block;
+    opacity: 1;
+}
+
+.table td .full-description {
+    display: none; /* Initially hide full description */
+}
+
+.act {
+    display: flex; /* or inline-block */
+    align-items: center; /* to vertically center the elements */
+}
+
+.material-symbols-outlined {
+    /* Add any styling you want for the symbol */
+    margin-right: 5px; /* Add spacing between the symbol and text */
+}
+
+
+@media (max-width: 1325px) {
+    .dash-content .boxes {
+        display: flex;
+        justify-content: space-between; /* Distribute the boxes evenly */
+        flex-wrap: wrap; /* Allow wrapping to the next line */
+    }
+
+    .dash-content .boxes .box {
+        width: calc(33.33% - 20px); /* Set width for each box, accounting for margins */
+        margin: 0 10px; /* Add margin between boxes */
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        border-radius: 20px;
+    }
+}
+@media (max-width: 1000px) {
+    nav{
+        width: 73px;
+    }
+    nav.close{
+        width: 250px;
+    }
+    nav .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close .logo_name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    nav li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close li a .link-name{
+        opacity: 1;
+        pointer-events: auto;
+    }
+    nav ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    nav.close ~ .dashboard{
+        left: 250px;
+        width: calc(100% - 250px);
+    }
+    nav ~ .dashboard .top{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    nav.close ~ .dashboard .top{
+        left: 250px;
+        width: calc(100% - 250px);
+    }
+    .activity .activity-data{
+        overflow-X: scroll;
+    }
+}
+
+@media (max-width: 780px) {
+    .dash-content .boxes {
+        display: block; /* Change to block layout for stacking */
+    }
+
+    .dash-content .boxes .box {
+        width: calc(100% - 30px); /* Set the width to fill the entire width of the container with some margin */
+        margin: 15px auto; /* Center the box horizontally with top and bottom margin */
+    }
+}
+
+@media (max-width: 1166px) {
+    .dash-content .boxes {
+        display: block; /* Change to block layout for stacking */
+    }
+
+    .dash-content .boxes .box {
+        width: calc(100% - 30px); /* Set the width to fill the entire width of the container with some margin */
+        margin: 15px auto; /* Center the box horizontally with top and bottom margin */
+    }
+}
+
+@media (max-width: 560px) {
+    .dash-content .boxes .box{
+        width: 100% ;
+    }
+    .dash-content .box{
+    display: inline;
+    }
+}
+@media (max-width: 400px) {
+    nav{
+        width: 0px;
+    }
+    nav.close{
+        width: 73px;
+    }
+    nav .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close .logo_name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav.close li a .link-name{
+        opacity: 0;
+        pointer-events: none;
+    }
+    nav ~ .dashboard{
+        left: 0;
+        width: 100%;
+    }
+    nav.close ~ .dashboard{
+        left: 73px;
+        width: calc(100% - 73px);
+    }
+    nav ~ .dashboard .top{
+        left: 0;
+        width: 100%;
+    }
+    nav.close ~ .dashboard .top{
+        left: 0;
+        width: 100%;
+    }
+}
+@media (max-width: 414px){
+    .dashboard .dash-content{
+        margin: 10px;
+    }
+    hr{
+        margin-bottom: 0px;
+    }
+    .dash-content .title{
+        display: block;
+        align-items: center;
+        margin: 0px 0 30px 0;
+        justify-content: space-between;
+    }
+    .dash-content .title .text{
+        font-size: 20px;
+        margin-left: 0px;
+        margin-top: -5px;
+    }
+    
+    
+    .buttons{
+        margin-top: 10px;
+    }
+    .bottom-search input[type="text"]{
+        margin-top: 20px;
+    }
+    .bottom-search .search i{
+        margin-top: 20px;
+    }
+    .table-container {
+        overflow-x: auto;
+        max-width: 414px;
+    }
+    .table{
+        width: 750px;
+        table-layout: fixed;
+    }
+    .dashboard-table-wrapper {
+        max-height: 265px; /* Maximum height */
+        overflow-y: auto; /* Vertical scrolling */
+    }
+    .dashboard-table-wrapper::-webkit-scrollbar {
+        width: 5px; /* Adjust the width of the scrollbar */
+        height: 5px;
+    }
+    
+    /* For WebKit browsers (e.g., Chrome, Safari) */
+    .table-container::-webkit-scrollbar-thumb {
+        background-color: #0E4BF1; /* Color of the scrollbar thumb */
+    }
+
+    .table td .description {
+        max-width: 414px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer; /* Add pointer cursor for clickable effect */
+    }
+    
+    .table td .full-description {
+        display: none; /* Initially hide full description */
+    }
+
+    .dash-content .boxes {
+        display: inline;
+    }
+    nav.close ~ .dashboard{
+        left: 250px;
+        width: calc(100% - 110px);
+        height: 1215px;
+    }
+}
