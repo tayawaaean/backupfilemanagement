@@ -41,7 +41,7 @@
                                         <span class="sr-only">Toggle Dropdown</span>
                                       </button>
                                       <div class="dropdown-menu">
-                                        <a class="dropdown-item edit_user" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Edit</a>
+                                        <a class="dropdown-item edit_user" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Edit Personal Information</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item delete_user" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>">Delete</a>
                                       </div>
@@ -71,6 +71,6 @@
     });
 
     $('.edit_user').click(function(){
-        uni_modal('Edit User','manage_user.php?id='+$(this).data('id'))
+        uni_modal('Edit Personal Information','manage_personal_info.php?id='+$(this).data('id'))
     });
 </script>

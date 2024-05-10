@@ -20,10 +20,6 @@ foreach($user->fetch_array() as $k =>$v){
 			<input type="text" name="username" id="username" class="form-control" value="<?php echo isset($meta['username']) ? $meta['username']: '' ?>" required>
 		</div>
 		<div class="form-group">
-			<label for="password">Password</label>
-			<input type="password" name="password" id="password" class="form-control" value="<?php echo isset($meta['password']) ? $meta['id']: '' ?>" required>
-		</div>
-		<div class="form-group">
 			<label for="type">User Type</label>
 			<select name="type" id="type" class="custom-select">
 				<option value="1" <?php echo isset($meta['type']) && $meta['type'] == 1 ? 'selected': '' ?>>Admin</option>
