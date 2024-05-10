@@ -19,34 +19,38 @@
         }
 
         .container {
-            margin-top: 20px;
+            
             max-width: 2000px;
-            height: 750px;
-            background-color: #82bfff;
+            height: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0,0.6); 
             padding: 20px;
             border-radius: 10px;
             display: flex;
+            background-color: #82bfff;
         }
 
         .left-section {
-            flex: 1.2;
+            flex: 1;
             padding-right: 20px;
-            
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
         }
 
         .right-section {
             flex: 1;
+            padding-right: 20px;
             padding-left: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-evenly;
         }
 
         .profile-picture-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 40px;
         }
 
         .profile-picture {
@@ -54,9 +58,9 @@
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid white;
             position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 2); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); 
+            background-color:#FFE6AC ;
         }
 
 
@@ -91,6 +95,7 @@
             font-size: 17px;
         }
 
+        
         .form-control {
             width: 100%;
             padding: 10px;
@@ -118,6 +123,7 @@
 <body>
 <div class="container">
     <div class="left-section">
+        <h2 style="color:white; font-weight:bold;">Personal Information</h2>
         <div class="profile-picture-container">
             <img src="default_profile_picture.jpg" alt="Profile Picture" class="profile-picture">
             <button class="edit-icon"><i class="far fa-edit"></i></button>
