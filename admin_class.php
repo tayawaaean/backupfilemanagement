@@ -56,8 +56,34 @@ Class Action {
 			}
 		}
 	}
+
+	function forgot_password(){
+		extract($_POST);
+		// Check if username exists
+		$check_username = $this->db->query("SELECT * FROM users WHERE username = '".$username3."'");
+		if($check_username->num_rows > 0){
+			// Check if new password matches confirm password
+			if($password3 == $confirm_password2){
+				// Encrypt the new password using MD5 encryption
+				$new_password = md5($password3);
+				// Update the password in the database
+				$update_query = "UPDATE users SET password = '".$new_password."' WHERE username = '".$username3."'";
+				$update = $this->db->query($update_query);
+				if($update){
+					return 1; // Password reset successful
+				} else {
+					return 0; // Password reset failed
+				}
+			} else {
+				return 2; // New password and confirm password do not match
+			}
+		} else {
+			return 3; // Username does not exist
+		}
+	}
 	
 
+	
 	function logout(){
 		session_destroy();
 		foreach ($_SESSION as $key => $value) {

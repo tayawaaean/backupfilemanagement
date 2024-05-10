@@ -151,5 +151,31 @@
 
 <script src= "./js/login.js"></script>
 <script src= "./js/register.js"></script>
-<script src= "./js/forgotpass.js"></script>
+<script>$('#forgot-pass-form').submit(function(e) {
+    e.preventDefault();
+    $('#submit-pass').attr('disabled', true).html('Resetting Password...');
+    if ($(this).find('.alert-danger').length > 0)
+        $(this).find('.alert-danger').remove();
+    $.ajax({
+        url: 'ajax.php?action=forgot_password',
+        method: 'POST',
+        data: $(this).serialize(),
+        error: function(err) {
+            console.log(err);
+            $('#submit-pass').removeAttr('disabled').html('Reset Password');
+        },
+        success: function(resp) {
+            if (resp.trim() == '1') { // Success case
+                // Display success message or redirect to login page
+                alert('Password reset successful. Please login with your new password.');
+                window.location.href = 'login.php'; // Redirect to login page
+            } else if (resp.trim() == '0') { // Failure case
+                // Display error message
+                $('#forgot-pass-form').prepend('<div class="alert alert-danger">Password reset failed. Please try again.</div>');
+                $('#submit-pass').removeAttr('disabled').html('Reset Password');
+            }
+        }
+    });
+});
+</script>
 </html>
