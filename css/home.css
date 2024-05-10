@@ -354,7 +354,14 @@ hr {
     margin-right: 5px; /* Add spacing between the symbol and text */
 }
 
+/* ===========================================
+# User tab 
+   ===========================================*/ 
 
+#new_user{
+margin-bottom: 10px;
+
+}
 @media (max-width: 1325px) {
     .dash-content .boxes {
         display: flex;
@@ -559,3 +566,4 @@ hr {
         height: 1215px;
     }
 }
+
