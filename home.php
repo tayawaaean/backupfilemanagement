@@ -81,9 +81,9 @@
                         <li>Kenric Catiwa</li>
                     </ul>
                     <button id="dropdown2" class="dropdown-button">
-                        <i class='bx bxs-calendar' ></i>
-                    </button>                            
-                    <ul class="menu">
+						<i class='bx bxs-calendar'></i>
+					</button>                            
+					<ul class="menu">
 						<li>January</li>
 						<li>February</li>
 						<li>March</li>
@@ -96,7 +96,8 @@
 						<li>October</li>
 						<li>November</li>
 						<li>December</li>
-                    </ul>
+					</ul>
+
                 </div>
 				<div class="bottom-search">
 					<div class="search">
