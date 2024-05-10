@@ -69,7 +69,11 @@ header("location:index.php?page=home");
         <div id="login-right">
             <div class="card col-md-8">
                 <div class="card-body">
-                    <form id="login-form" >
+                    <form id="register-form" >
+                        <div class="form-group">
+                            <label for="name" class="control-label">Name</label>
+                            <input type="text" id="name" name="name" class="form-control">
+                        </div>
                         <div class="form-group">
                             <label for="username" class="control-label">Username</label>
                             <input type="text" id="username" name="username" class="form-control">
@@ -78,14 +82,15 @@ header("location:index.php?page=home");
                             <label for="password" class="control-label">Password</label>
                             <input type="password" id="password" name="password" class="form-control">
                         </div>
-                        <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
+                        <div class="form-group">
+                            <label for="confirm_password" class="control-label">Confirm Password</label>
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control">
+                        </div>
+                        <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Register</button></center>
                     </form>
                     <div class="row mt-3">
-                        <div class="col-md-6">
-                            <a href="forgot_password.php" class="btn btn-link">Forgot Password?</a>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <a href="register.php" class="btn btn-link">Sign Up</a>
+                        <div class="col-md-12 text-center">
+                            <a href="login.php" class="btn btn-link">Already have an account? Login</a>
                         </div>
                     </div>
                 </div>
@@ -100,30 +105,29 @@ header("location:index.php?page=home");
 
 </body>
 <script>
-    $('#login-form').submit(function(e){
+    $('#register-form').submit(function(e){
         e.preventDefault()
-        $('#login-form button[type="button"]').attr('disabled',true).html('Logging in...');
+        $('#register-form button[type="button"]').attr('disabled',true).html('Registering...');
         if($(this).find('.alert-danger').length > 0 )
             $(this).find('.alert-danger').remove();
         $.ajax({
-            url:'ajax.php?action=login',
+            url:'ajax.php?action=register',
             method:'POST',
             data:$(this).serialize(),
             error:err=>{
                 console.log(err)
-        $('#login-form button[type="button"]').removeAttr('disabled').html('Login');
+        $('#register-form button[type="button"]').removeAttr('disabled').html('Register');
 
             },
             success:function(resp){
                 if(resp == 1){
                     location.reload('index.php?page=home');
                 }else{
-                    $('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
-                    $('#login-form button[type="button"]').removeAttr('disabled').html('Login');
+                    $('#register-form').prepend('<div class="alert alert-danger">Registration failed. Please try again.</div>')
+                    $('#register-form button[type="button"]').removeAttr('disabled').html('Register');
                 }
             }
         })
     })
 </script>    
 </html>
-s
