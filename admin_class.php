@@ -56,7 +56,7 @@ Class Action {
 			}
 		}
 	}
-
+	
 	function forgot_password(){
 		extract($_POST);
 		// Check if username exists
@@ -195,51 +195,18 @@ Class Action {
 	}
 	function save_user(){
 		extract($_POST);
-	
-		// Handle profile picture upload
-		if(isset($_FILES['profile']['tmp_name']) && $_FILES['profile']['tmp_name'] != ''){
-			// Define upload directory and file name
-			$upload_dir = './profile_image/';
-			$profile_pic = $upload_dir . basename($_FILES['profile']['name']);
-	
-			// Move uploaded file to the upload directory
-			if(move_uploaded_file($_FILES['profile']['tmp_name'], $profile_pic)){
-				// Success: Set profile picture path in $data
-				$profile_pic_path = $profile_pic;
-			} else {
-				// Error handling if file upload fails
-				return 0; // Return 0 indicating failure
-			}
-		} else {
-			// If no profile picture is uploaded, set it to NULL or handle it as required
-			$profile_pic_path = NULL;
-		}
-	
-		// Escape user inputs to prevent SQL injection
-		$name = $this->db->real_escape_string($name);
-		$username = $this->db->real_escape_string($username);
-		$type = $this->db->real_escape_string($type);
-	
-		// Prepare SQL data
 		$data = " name = '$name' ";
 		$data .= ", username = '$username' ";
 		$data .= ", type = '$type' ";
-		$data .= ", profile_pic = '$profile_pic_path' ";
-	
-		// Perform insert or update based on whether ID is provided
 		if(empty($id)){
-			$save = $this->db->query("INSERT INTO users SET ".$data);
-		} else {
-			$save = $this->db->query("UPDATE users SET ".$data." WHERE id = ".$id);
+			$save = $this->db->query("INSERT INTO users set ".$data);
+		}else{
+			$save = $this->db->query("UPDATE users set ".$data." where id = ".$id);
 		}
-	
-		// Check if query was successful
 		if($save){
-			return 1; // Success
-		} else {
-			return 0; // Error
+			return 1;
 		}
-	}
-	
+	}	
+
 		
 }

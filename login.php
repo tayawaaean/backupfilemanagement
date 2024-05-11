@@ -150,7 +150,6 @@
 </body>
 
 <script src= "./js/login.js"></script>
-<script src= "./js/register.js"></script>
 <script>$('#forgot-pass-form').submit(function(e) {
     e.preventDefault();
     $('#submit-pass').attr('disabled', true).html('Resetting Password...');
@@ -177,5 +176,36 @@
         }
     });
 });
+
+$(document).ready(function() {
+    $('#signup-form').submit(function(e) {
+        e.preventDefault();
+        $('#Sign-in').attr('disabled', true).html('Signing Up...');
+
+        $.ajax({
+            url: 'register.php',
+            method: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json', // Specify JSON response type
+            error: function(err) {
+                console.log(err);
+                $('#Sign-in').removeAttr('disabled').html('Sign Up');
+            },
+            success: function(resp) {
+                // Handle success or error response accordingly
+                console.log(resp);
+                if (resp.status === 'success') {
+                    // Reload the page if signup was successful
+                    location.reload();
+                } else {
+                    // Handle error message display
+                    // Example: $('#error-message').text(resp.message);
+                }
+            }
+        });
+    });
+});
+
+
 </script>
 </html>
