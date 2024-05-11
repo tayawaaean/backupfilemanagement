@@ -1638,11 +1638,11 @@ a.nav-item:hover, .nav-item.active {
     color: #5d5d5d;
 }
 main#view-panel{
-  margin-left: 250px; 
-  width:calc(100% - 250px);
-  margin-top: 3.5rem;
-  padding: .5em
+  margin-left: 300px; 
+  width:calc(100% - 300px);
+  padding: .5em;
 }
+
 .toast{
   display: none;
   min-width: 20vw
@@ -1656,9 +1656,7 @@ main#view-panel{
     right: 0;
     top: 3.5rem;
 }
-main#main {
-    /*margin-top: 8rem;*/
-}
+
 main#main.login {
     margin-top: unset;
 }

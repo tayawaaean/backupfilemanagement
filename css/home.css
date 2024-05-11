@@ -27,7 +27,7 @@
 
 body{
     min-height: 100vh;
-    background-color: whitesmoke;
+    background-color: #fff;
 }
 body.dark{
     --primary-color: #3A3B3C;
@@ -328,10 +328,6 @@ hr {
 }
 
 .menu li:hover {
-    background: darkblue;
-}
-
-.active {
     background: darkblue;
 }
 
