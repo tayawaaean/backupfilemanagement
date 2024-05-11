@@ -14,9 +14,6 @@ if(isset($_GET['id'])){
     <div class="row">
         <div class="card col-lg-12 container_card">
             <div class="card-body">
-                <div class="col-lg-12">
-                    <button class="btn btn-primary float-right btn-sm" id="new_user"><i class="fa fa-plus"></i> New user</button>
-                </div>
                 <input type="text" id="searchInput" placeholder="Search for names.." class="form-control mb-3">
                 <table class="info_table">
                     <thead>
