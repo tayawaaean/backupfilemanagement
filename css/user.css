@@ -2,7 +2,7 @@
 # User tab 
    ===========================================*/ 
 
-#new_user{
+   #new_user{
     margin-bottom: 10px;
     background-color: rgb(19, 175, 90);
     border: none;
@@ -29,14 +29,15 @@
     background-color: rgb(110, 30, 30);
 }
 
-.info_table{
+.info_table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 400px;
+    color: #000;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid #DDD;
+    font-size: 16px; /* Adjust font size as needed */
 }
+
 
 .info_table thead tr {
     background-color: rgb(34, 109, 189);
@@ -44,8 +45,19 @@
     text-align: left;
 }
 
-.info_table th, .info_table td {
-    padding: 12px 15px;
+.info_table th {
+    background-color: lightblue;
+    color: black;
+    padding: 10px;
+    text-align: left;
+    border-right: 1px solid #DDD;
+}
+
+.info_table td{
+    padding: 10px;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    color: #000;
 }
 
 .info_table tbody tr {
@@ -67,8 +79,3 @@
 .container-fluid{
     margin-top: 10px;
 }
-
-
-/* ===========================================
-# User modal 
-   ===========================================*/ 

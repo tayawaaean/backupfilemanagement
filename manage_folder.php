@@ -31,6 +31,7 @@ $qry = $conn->query("SELECT * FROM folders where id=".$_GET['id']);
 			url:'ajax.php?action=save_folder',
 			method:'POST',
 			data:$(this).serialize(),
+			
 			success:function(resp){
 				if(typeof resp != undefined){
 					resp = JSON.parse(resp);

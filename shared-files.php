@@ -33,8 +33,27 @@ a.custom-menu-list {
 a.custom-menu-list:hover,.file-item:hover,.file-item.active {
     background: #80808024;
 }
-table th,td{
-	/*border-left:1px solid gray;*/
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #000;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid #DDD;
+    font-size: 16px; /* Adjust font size as needed */
+}
+table th{
+	background-color: lightblue;
+    color: black;
+    padding: 10px;
+    text-align: left;
+    border-right: 1px solid #DDD;
+}
+table td{
+	padding: 10px;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    color: #000;
 }
 a.custom-menu-list span.icon{
 		width:1em;

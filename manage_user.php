@@ -13,10 +13,6 @@ foreach($user->fetch_array() as $k =>$v){
     <form action="" id="manage-user" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo isset($meta['id']) ? $meta['id']: '' ?>">
         <div class="form-group">
-            <label for="profile">Profile Image</label>
-            <input type="file" id="profile" name="profile" class="form-control" accept="image/*">
-        </div>
-        <div class="form-group">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" class="form-control" value="<?php echo isset($meta['name']) ? $meta['name']: '' ?>" required>
         </div>
