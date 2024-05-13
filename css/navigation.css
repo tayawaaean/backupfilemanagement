@@ -164,10 +164,10 @@ body{
 }
 
 .menuToggle{
-    position:absolute;
+    position:left;
     top:20px;
     right:20px;
-    width:50px;
+    width:85px;
     height:50px;
     background: #31a4ff;
     z-index: 1000;
