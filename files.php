@@ -77,8 +77,42 @@ table td{
     border-right: 1px solid #DDD;
     color: #000;
 }
+h2{
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+    font-family: montserrat;
+}
+
+.dash-content .overview .title{
+    display: flex;
+    align-items: center;
+    margin: 0px 0 30px 0;
+    justify-content: space-between;
+}
+.dash-content .title i{
+    position: relative;
+    height: 35px;
+    width: 35px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+.dash-content .title .text{
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-left: 10px;
+}
 
 </style>
+<div class="overview">
+        <div class="title">
+            <h2>My Files</h2>
+        </div>
+        <hr>
 <div class="container-fluid">
 	<div class="col-lg-12">
 		<div class="row">

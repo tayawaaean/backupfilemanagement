@@ -17,7 +17,8 @@
  ?>
 <?php
 // Assuming you have a connection to your database already established
-include 'db_connect.php';
+include 'counter.php';
+include 'counter_employee.php';
 ?>
 
 </head>

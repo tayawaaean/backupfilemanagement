@@ -203,11 +203,18 @@ hr {
     color: var(--text-color);
 }
 .boxes .box.box2{
-    background-color: white;
+    background-color:   #F6F5F5;
+
 }
+
 .boxes .box.box3{
-    background-color: white;
+    background-color:  #F6F5F5;
+
 }
+.boxes .box.box1{
+    background-color:  #F6F5F5;
+}
+
 .dash-content .activity .activity-data{
     display: flex;
     justify-content: space-between;

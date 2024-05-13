@@ -40,7 +40,7 @@
         <div class="box box1">
             <i class='bx bxs-user'></i>
             <span class="text">
-                <span class="number">12</span>
+                <span class="number"><?php echo $totalFiles; ?></span>
                 <span class="text">Total Files</span>
             </span>
         </div>
@@ -48,14 +48,14 @@
         <div class="box box3">
             <i class="material-symbols-outlined">app_registration</i>
             <span class="text">
-                <span class="number">4</span>
+                <span class="number"><?php echo $totalFolders; ?></span>
                 <span class="text">Folders</span>
             </span>
         </div>
 		<div class="box box2">
             <i2 class="material-symbols-outlined">folder_open</i2>
             <span class="text">
-                <span class="number">1,028</span>
+                <span class="number"><?php echo $totalSharedFiles; ?></span>
                 <span class="text">Shared Files</span>
             </span>
         </div>

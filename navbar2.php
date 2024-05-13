@@ -48,7 +48,7 @@
                     </li>
                 <?php elseif($login_type == 2): ?>
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'employee' ? 'active' : ''; ?>">
-                        <a href="index.php?page=employee">
+                        <a href="index.php?page=home">
                             <div class="icon"><ion-icon name="home"></ion-icon></div>
                             <div class="text">Home</div>
                         </a>
@@ -74,15 +74,29 @@
                 </li>
             </div>
             <div class="bottom">
-                <li>
-                    <a href="#">
-                        <div class="icon">
-                            <div class="imgBx">
-                                <img src="./assets/img/Catiwa, Kenric.jpeg" width="100" height="100">
-                            </div>
+            <?php
+                include 'db_connect.php';
+                // Assuming $login_id stores the session login ID
+                $login_id = $_SESSION['login_id'];
+                $user_query = $conn->query("SELECT * FROM users WHERE id = $login_id");
+                $user = $user_query->fetch_assoc();
+            ?>
+            <li>
+                <a href="#">
+                    <div class="icon">
+                        <div class="imgBx">
+                            <!-- Display user's profile picture dynamically -->
+                            <?php if(!empty($user['profile_pic'])): ?>
+                                <img src="profile_pics/<?php echo $user['profile_pic']; ?>" width="100" height="100" alt="Profile Picture">
+                            <?php else: ?>
+                                <img src="profile_pics/.png" width="100" height="100" alt="Default Profile Picture">
+                            <?php endif; ?>
                         </div>
-                        <div class="text">Kenric Catiwa</div>
-                    </a>
+                    </div>
+                    <div class="text"><?php echo $user['name']; ?></div>
+                </a>
+            </li>
+
                 </li>
                 <li>
                     <a href="logout.php">
