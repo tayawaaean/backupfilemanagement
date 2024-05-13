@@ -4,7 +4,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
-
 <div class="dash-content">
     <div class="overview">
         <div class="title">
@@ -16,21 +15,21 @@
         <div class="box box1">
             <i class='bx bxs-user'></i>
             <span class="text">
-                <span class="number">12</span>
+                <span class="number"><?php echo $totalUsers; ?></span>
                 <span class="text">Total Users</span>
             </span>
         </div>
         <div class="box box2">
             <i2 class="material-symbols-outlined">folder_open</i2>
             <span class="text">
-                <span class="number">1,028</span>
+                <span class="number"><?php echo $totalFiles;?></span>
                 <span class="text">Total Files</span>
             </span>
         </div>
         <div class="box box3">
             <i class="material-symbols-outlined">app_registration</i>
             <span class="text">
-                <span class="number">4</span>
+                <span class="number"><?php echo $totalPendingRegister; ?></span>
                 <span class="text">Pending Register</span>
             </span>
         </div>

@@ -46,6 +46,37 @@ a.custom-menu-list span.icon{
 		width:1em;
 		margin-right: 5px
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color:#000;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid #DDD;
+}
+
+table th {
+    background-color: lightblue;
+    color: black;
+    padding: 10px;
+    text-align: left;
+    border-right: 1px solid #DDD;
+}
+
+/* Adjust the minimum width as needed */
+table th:nth-child(2), 
+table th:nth-child(3) {
+    min-width: 80px; /* Adjust according to your needs */
+}
+
+table td:first-child{
+    border-left: 1px solid #DDD;
+}
+table td{
+    padding: 10px;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    color: #000;
+}
 
 </style>
 <div class="container-fluid">
