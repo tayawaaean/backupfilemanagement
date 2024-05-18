@@ -342,7 +342,7 @@ hr {
     display: block;
     opacity: 1;
 }
-.active {
+.active-mm {
     background: darkblue;
 }
 .table td .full-description {

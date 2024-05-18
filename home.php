@@ -273,9 +273,9 @@ options1.forEach(option => {
     option.addEventListener('click', () => {
         closeDropdowns();
         options1.forEach(opt => {
-            opt.classList.remove('active');
+            opt.classList.remove('active-mm');
         });
-        option.classList.add('active');
+        option.classList.add('active-mm');
     });
 });
 
@@ -290,9 +290,9 @@ options2.forEach(option => {
     option.addEventListener('click', () => {
         closeDropdowns();
         options2.forEach(opt => {
-            opt.classList.remove('active');
+            opt.classList.remove('active-mm');
         });
-        option.classList.add('active');
+        option.classList.add('active-mm');
     });
 });
 </script>
