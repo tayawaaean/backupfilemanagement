@@ -186,12 +186,14 @@
 							<?php 
 							
 							// Retrieve the name from the users table based on the username
-							$nameQuery = $conn->query("SELECT name FROM users WHERE id ='$loginId'");
+							// $nameQuery = $conn->query("SELECT name FROM users WHERE id ='$loginId'"); //Uncomment if you want to show only the users log
+							$nameQuery = $conn->query("SELECT name FROM users"); //Comment this if you switch to show users log only
 							if ($nameQuery && $nameQuery->num_rows > 0) {
 								$name = $nameQuery->fetch_assoc()['name'];
 
 								// Fetch activity log entries based on the author's name
-								$result = $conn->query("SELECT * FROM activity_log WHERE Author = '$name'");
+								// $result = $conn->query("SELECT * FROM activity_log WHERE Author = '$name'"); //Uncomment if you want to show only the users log
+								$result = $conn->query("SELECT * FROM activity_log"); //Comment this if you switch to show users log only
 								while ($row = $result->fetch_assoc()): 
 									$dateTime = $row['DateTime'];
 									$date = date("F j, Y", strtotime($dateTime));
