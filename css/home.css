@@ -342,7 +342,9 @@ hr {
     display: block;
     opacity: 1;
 }
-
+.active {
+    background: darkblue;
+}
 .table td .full-description {
     display: none; /* Initially hide full description */
 }
@@ -570,3 +572,8 @@ margin-bottom: 10px;
     }
 }
 
+/* Table Design Activity Log */
+
+	.dataTables_wrapper .dataTables_filter {
+        display: none;
+	}
