@@ -73,7 +73,7 @@
                     </a>
                 </li>
             </div>
-            <div class="bottom">
+            <div class="bottom-nav">
             <?php
                 include 'db_connect.php';
                 // Assuming $login_id stores the session login ID

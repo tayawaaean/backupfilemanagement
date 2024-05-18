@@ -2,7 +2,7 @@ let menuToggle = document.querySelector('.menuToggle');
 let sidebar = document.querySelector('.sidebar');
 
 menuToggle.onclick= function(){
-    menuToggle.classList.toggle('active');
+    menuToggle.classList.toggle('active-menu');
     sidebar.classList.toggle('active');
 
     }

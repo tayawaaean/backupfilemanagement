@@ -249,7 +249,6 @@ hr {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    height: 500px;
     max-width: 100%;
 }
 
@@ -304,8 +303,9 @@ hr {
 }
 
 .dashboard-table-wrapper {
-    max-height: 390px;
+    max-height: 500px;
     overflow-y: auto;
+    overflow-x: hidden
 }
 
 .dashboard-table-wrapper::-webkit-scrollbar-thumb {
