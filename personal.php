@@ -8,122 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Font Awesome Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-
-    <!-- Add custom CSS -->
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .container {
-            
-            max-width: 2000px;
-            height: 800px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0,0.6); 
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            background-color: #82bfff;
-        }
-
-        .left-section {
-            flex: 1;
-            padding-right: 20px;
-            padding-left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-        }
-
-        .right-section {
-            flex: 1;
-            padding-right: 20px;
-            padding-left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-        }
-
-        .profile-picture-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .profile-picture {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); 
-            background-color:#FFE6AC ;
-        }
-
-
-        .edit-icon {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            padding: 5px;
-            cursor: pointer;
-        }
-
-        .edit-icon:hover {
-            background-color: #0056b3;
-        }
-
-        .personal-info {
-            margin-bottom: 20px;
-        }
-
-        .personal-info label {
-            font-weight: bold;
-            color: white;
-            font-size: 17px;
-        }
-        .right-section label{
-            font-weight: bold;
-            color: white;
-            font-size: 17px;
-        }
-
-        
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            height: 50px;
-            background-color: #FFE6AC;;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            align-self: flex-end;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/personal.css">
+    
 </head>
 <body>
 <div class="container">
     <div class="left-section">
-        <h2 style="color:white; font-weight:bold;">Personal Information</h2>
+        <div class="header-container">
+            <h2 style="color:#15169A; font-weight:bold;">Personal Information</h2>
+            <hr>
+        </div>
         <div class="profile-picture-container">
             <img src="default_profile_picture.jpg" alt="Profile Picture" class="profile-picture">
             <button class="edit-icon"><i class="far fa-edit"></i></button>
@@ -151,7 +45,7 @@
     <div class="right-section">
         <div class="form-group">
             <label for="address">Address:</label>
-            <input type="text" class="form-control" id="job_title" name="job_title">
+            <input type="text" class="form-control" id="address" name="address">
         </div>
         <div class="form-group">
             <label for="job_title">Job Title:</label>
