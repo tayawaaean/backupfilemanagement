@@ -77,6 +77,7 @@ include 'counter_employee.php';
     </div>
   </div>
 </body>
+<script src="./js/navbar.js"></script>
 <script>
 	 window.start_load = function(){
     $('body').prepend('<di id="preloader2"></di>')

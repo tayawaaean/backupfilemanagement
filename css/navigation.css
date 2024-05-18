@@ -26,7 +26,7 @@ body{
     overflow: hidden;
 }
 .sidebar.active{
-    width: 300px;
+    width: 320px;
 }
 .sidebar ul{
     position: relative;
@@ -216,4 +216,17 @@ body{
 
 .active-menu{
     background: #31a4ff;
+}
+
+main#view-panel{
+    margin-left: 100px; 
+    width:calc(100% - 100px);
+    padding: .5em;
+    transition:0.5s;
+}
+
+main#view-panel.menu-active {
+    margin-left: 350px; 
+    width: calc(100% - 350px);
+    transition:0.5s; 
 }
