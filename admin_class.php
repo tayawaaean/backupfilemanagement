@@ -96,90 +96,209 @@ Class Action {
 		extract($_POST);
 		$data = " name ='".$name."' ";
 		$data .= ", parent_id ='".$parent_id."' ";
+		$user_id = $_SESSION['login_id'];
+		$log_action = '';
+		$log_description = '';
+	
 		if(empty($id)){
-			$data .= ", user_id ='".$_SESSION['login_id']."' ";
+			$data .= ", user_id ='".$user_id."' ";
 			
-			$check = $this->db->query("SELECT * FROM folders where user_id ='".$_SESSION['login_id']."' and name  ='".$name."'")->num_rows;
+			$check = $this->db->query("SELECT * FROM folders where user_id ='".$user_id."' and name ='".$name."'")->num_rows;
 			if($check > 0){
-				return json_encode(array('status'=>2,'msg'=> 'Folder name already exist'));
-			}else{
+				return json_encode(array('status'=>2,'msg'=> 'Folder name already exists'));
+			} else {
 				$save = $this->db->query("INSERT INTO folders set ".$data);
-				if($save)
-				return json_encode(array('status'=>1));
+				if($save){
+					$log_action = 'Folder Created';
+					$log_description = "Created folder {$name}";
+	
+					// Log the activity
+					$user_data = $this->db->query("SELECT name, type FROM users WHERE id=".$user_id)->fetch_array();
+					$user_name = $user_data['name'];
+					$usertype = $user_data['type'];
+					$job_title = ($usertype == 1) ? 'Admin' : 'Employee';
+					$author = $user_name;
+					$timestamp = date('Y-m-d H:i:s');
+					$log_query = "INSERT INTO activity_log (Author, Action, DateTime, Job_title, Description) VALUES ('$author', '$log_action', '$timestamp', '$job_title', '$log_description')";
+					$this->db->query($log_query);
+	
+					return json_encode(array('status'=>1));
+				}
 			}
-		}else{
-			$check = $this->db->query("SELECT * FROM folders where user_id ='".$_SESSION['login_id']."' and name  ='".$name."' and id !=".$id)->num_rows;
+		} else {
+			$check = $this->db->query("SELECT * FROM folders where user_id ='".$user_id."' and name ='".$name."' and id !=".$id)->num_rows;
 			if($check > 0){
-				return json_encode(array('status'=>2,'msg'=> 'Folder name already exist'));
-			}else{
+				return json_encode(array('status'=>2,'msg'=> 'Folder name already exists'));
+			} else {
 				$save = $this->db->query("UPDATE folders set ".$data." where id =".$id);
-				if($save)
-				return json_encode(array('status'=>1));
+				if($save){
+					$log_action = 'Folder Updated';
+					$log_description = "Updated folder {$name}";
+	
+					// Log the activity
+					$user_data = $this->db->query("SELECT name, type FROM users WHERE id=".$user_id)->fetch_array();
+					$user_name = $user_data['name'];
+					$usertype = $user_data['type'];
+					$job_title = ($usertype == 1) ? 'Admin' : 'Employee';
+					$author = $user_name;
+					$timestamp = date('Y-m-d H:i:s');
+					$log_query = "INSERT INTO activity_log (Author, Action, DateTime, Job_title, Description) VALUES ('$author', '$log_action', '$timestamp', '$job_title', '$log_description')";
+					$this->db->query($log_query);
+	
+					return json_encode(array('status'=>1));
+				}
 			}
-
 		}
 	}
+	
 
 	function delete_folder(){
+		// Extract POST data
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM folders where id =".$id);
-		if($delete)
-			echo 1;
-	}
-	function delete_file(){
-		extract($_POST);
-		$path = $this->db->query("SELECT file_path from files where id=".$id)->fetch_array()['file_path'];
-		$delete = $this->db->query("DELETE FROM files where id =".$id);
+	
+		// Fetch the folder name and user_id from the folders table
+		$folder_data = $this->db->query("SELECT name, user_id FROM folders WHERE id=".$id)->fetch_array();
+		$folder_name = $folder_data['name'];
+		$user_id = $folder_data['user_id'];
+	
+		// Fetch the user name and usertype from the users table
+		$user_data = $this->db->query("SELECT name, type FROM users WHERE id=".$user_id)->fetch_array();
+		$user_name = $user_data['name'];
+		$usertype = $user_data['type'];
+	
+		// Determine the Job_title based on the usertype
+		$job_title = ($usertype == 1) ? 'Admin' : 'Employee';
+	
+		// Delete the folder record from the database
+		$delete = $this->db->query("DELETE FROM folders WHERE id=".$id);
+	
 		if($delete){
-					unlink('assets/uploads/'.$path);
-					return 1;
-				}
+			// Insert an entry into the activity log
+			$author = $user_name;  // Use the fetched user name as the author
+			$activity = 'Folder Deleted';
+			$description = "Deleted folder {$folder_name}";
+			$timestamp = date('Y-m-d H:i:s');  // Current timestamp
+			$log_query = "INSERT INTO activity_log (Author, Action, DateTime, Job_title, Description) VALUES ('$author', '$activity', '$timestamp', '$job_title', '$description')";
+			$this->db->query($log_query);
+	
+			echo 1;
+		}
 	}
-
+	
+	
+	function delete_file(){
+		// Extract POST data
+		extract($_POST);
+	
+		// Fetch the file path, user_id, description, filename, and folder_id from the database
+		$file_data = $this->db->query("SELECT file_path, user_id, description, name, folder_id FROM files WHERE id=".$id)->fetch_array();
+		$path = $file_data['file_path'];
+		$user_id = $file_data['user_id'];
+		$filename = $file_data['name'];
+		$folder_id = $file_data['folder_id'];
+	
+		// Fetch the user name and usertype from the users table
+		$user_data = $this->db->query("SELECT name, type FROM users WHERE id=".$user_id)->fetch_array();
+		$user_name = $user_data['name'];
+		$usertype = $user_data['type'];
+	
+		// Fetch the folder name from the folders table
+		$folder_name = $this->db->query("SELECT name FROM folders WHERE id=".$folder_id)->fetch_array()['name'];
+	
+		// Determine the Job_title based on the usertype
+		$job_title = ($usertype == 1) ? 'Admin' : 'Employee';
+	
+		// Delete the file record from the database
+		$delete = $this->db->query("DELETE FROM files WHERE id=".$id);
+	
+		if($delete){
+			// Delete the physical file from the server
+			unlink('assets/uploads/'.$path);
+	
+			// Insert an entry into the activity log
+			$author = $user_name;  // Use the fetched user name as the author
+			$activity = 'Document Deleted';
+			$description = "Deleted {$filename} in {$folder_name} folder";
+			$timestamp = date('Y-m-d H:i:s');  // Current timestamp
+			$log_query = "INSERT INTO activity_log (Author, Action, DateTime, Job_title, Description) VALUES ('$author', '$activity', '$timestamp', '$job_title', '$description')";
+			$this->db->query($log_query);
+	
+			return 1;
+		}
+	}
+	
 	function save_files(){
 		extract($_POST);
 		if(empty($id)){
-		if($_FILES['upload']['tmp_name'] != ''){
-					$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['upload']['name'];
-					$move = move_uploaded_file($_FILES['upload']['tmp_name'],'assets/uploads/'. $fname);
-		
-					if($move){
-						$file = $_FILES['upload']['name'];
-						$file = explode('.',$file);
-						$chk = $this->db->query("SELECT * FROM files where SUBSTRING_INDEX(name,' ||',1) = '".$file[0]."' and folder_id = '".$folder_id."' and file_type='".$file[1]."' ");
-						if($chk->num_rows > 0){
-							$file[0] = $file[0] .' ||'.($chk->num_rows);
-						}
-						$data = " name = '".$file[0]."' ";
-						$data .= ", folder_id = '".$folder_id."' ";
-						$data .= ", description = '".$description."' ";
-						$data .= ", user_id = '".$_SESSION['login_id']."' ";
-						$data .= ", file_type = '".$file[1]."' ";
-						$data .= ", file_path = '".$fname."' ";
-						if(isset($is_public) && $is_public == 'on')
-						$data .= ", is_public = 1 ";
-						else
-						$data .= ", is_public = 0 ";
-
-						$save = $this->db->query("INSERT INTO files set ".$data);
-						if($save)
-						return json_encode(array('status'=>1));
-		
+			if($_FILES['upload']['tmp_name'] != ''){
+				$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['upload']['name'];
+				$move = move_uploaded_file($_FILES['upload']['tmp_name'],'assets/uploads/'. $fname);
+	
+				if($move){
+					$file = $_FILES['upload']['name'];
+					$file = explode('.',$file);
+					$chk = $this->db->query("SELECT * FROM files where SUBSTRING_INDEX(name,' ||',1) = '".$file[0]."' and folder_id = '".$folder_id."' and file_type='".$file[1]."' ");
+					if($chk->num_rows > 0){
+						$file[0] = $file[0] .' ||'.($chk->num_rows);
 					}
-		
-				}
-			}else{
-						$data = " description = '".$description."' ";
-						if(isset($is_public) && $is_public == 'on')
+					$data = " name = '".$file[0]."' ";
+					$data .= ", folder_id = '".$folder_id."' ";
+					$data .= ", description = '".$description."' ";
+					$data .= ", user_id = '".$_SESSION['login_id']."' ";
+					$data .= ", file_type = '".$file[1]."' ";
+					$data .= ", file_path = '".$fname."' ";
+					if(isset($is_public) && $is_public == 'on')
 						$data .= ", is_public = 1 ";
-						else
+					else
 						$data .= ", is_public = 0 ";
-						$save = $this->db->query("UPDATE files set ".$data. " where id=".$id);
-						if($save)
+	
+					$save = $this->db->query("INSERT INTO files set ".$data);
+					if($save){
+						// Insert an entry into the activity log
+						$user_id = $_SESSION['login_id'];
+						$user_data = $this->db->query("SELECT name, type FROM users WHERE id=".$user_id)->fetch_array();
+						$user_name = $user_data['name'];
+						$usertype = $user_data['type'];
+						$job_title = ($usertype == 1) ? 'Admin' : 'Employee';
+						$author = $user_name;
+						$activity = 'File Uploaded';
+						$description = "Uploaded file {$file[0]}.{$file[1]} in folder ID {$folder_id}";
+						$timestamp = date('Y-m-d H:i:s');
+						$log_query = "INSERT INTO activity_log (Author, Action, DateTime, Job_title, Description) VALUES ('$author', '$activity', '$timestamp', '$job_title', '$description')";
+						$this->db->query($log_query);
+	
 						return json_encode(array('status'=>1));
+					}
+				}
 			}
-
+		} else {
+			$data = " description = '".$description."' ";
+			if(isset($is_public) && $is_public == 'on')
+				$data .= ", is_public = 1 ";
+			else
+				$data .= ", is_public = 0 ";
+			$save = $this->db->query("UPDATE files set ".$data. " where id=".$id);
+			if($save){
+				// Insert an entry into the activity log
+				$user_id = $_SESSION['login_id'];
+				$user_data = $this->db->query("SELECT name, type FROM users WHERE id=".$user_id)->fetch_array();
+				$user_name = $user_data['name'];
+				$usertype = $user_data['type'];
+				$job_title = ($usertype == 1) ? 'Admin' : 'Employee';
+				$author = $user_name;
+				$activity = 'Shared a File';
+				$description = "Shared file ID {$id} with new description: {$description}";
+				$timestamp = date('Y-m-d H:i:s');
+				$log_query = "INSERT INTO activity_log (Author, Action, DateTime, Job_title, Description) VALUES ('$author', '$activity', '$timestamp', '$job_title', '$description')";
+				$this->db->query($log_query);
+		
+				return json_encode(array('status'=>1));
+			}
+		}
+		
 	}
+	
+	
 	function file_rename(){
 		extract($_POST);
 		$file[0] = $name;
@@ -187,12 +306,26 @@ Class Action {
 		$chk = $this->db->query("SELECT * FROM files where SUBSTRING_INDEX(name,' ||',1) = '".$file[0]."' and folder_id = '".$folder_id."' and file_type='".$file[1]."' and id != ".$id);
 		if($chk->num_rows > 0){
 			$file[0] = $file[0] .' ||'.($chk->num_rows);
-			}
+		}
 		$save = $this->db->query("UPDATE files set name = '".$name."' where id=".$id);
 		if($save){
-				return json_encode(array('status'=>1,'new_name'=>$file[0].'.'.$file[1]));
+			// Insert an entry into the activity log
+			$user_id = $_SESSION['login_id'];
+			$user_data = $this->db->query("SELECT name, type FROM users WHERE id=".$user_id)->fetch_array();
+			$user_name = $user_data['name'];
+			$usertype = $user_data['type'];
+			$job_title = ($usertype == 1) ? 'Admin' : 'Employee';
+			$author = $user_name;
+			$activity = 'File Renamed';
+			$description = "Renamed file to {$file[0]}.{$file[1]} in folder ID {$folder_id}";
+			$timestamp = date('Y-m-d H:i:s');
+			$log_query = "INSERT INTO activity_log (Author, Action, DateTime, Job_title, Description) VALUES ('$author', '$activity', '$timestamp', '$job_title', '$description')";
+			$this->db->query($log_query);
+	
+			return json_encode(array('status'=>1, 'new_name'=>$file[0].'.'.$file[1]));
 		}
 	}
+	
 	function save_user(){
 		extract($_POST);
 		$data = " name = '$name' ";

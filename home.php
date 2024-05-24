@@ -147,21 +147,21 @@
 									<td>
 									<div class="description">
 									<?php if($row['Action'] === "New User Approved") { ?>
-											<?php echo 'You ', 'accepted' ,' ',$row['Description'],' ','to be a new user.'?>
-											<?php } else if ($row['Action'] === "New User Denied") {?>
-											<?php echo 'You ','denied',' ',$row['Description'],' ','to be a new user.'?>
-											<?php } else if ($row['Action'] === "Profile Updated") {?>
-											<?php echo 'You ','updated your personal information.'?>
-											<?php } else if ($row['Action'] === "Uploaded a new file") {?>
-											<?php echo 'You ','uploaded a document in ',$row['Description'],' folder.'?>
-											<?php } else if ($row['Action'] === "Uploaded Multiple Files") {?>
-											<?php echo 'You ','uploaded multipe files in ',$row['Description'],' folder.'?>
-											<?php } else if ($row['Action'] === "Created A New Folder") {?>
-											<?php echo 'You ','created ',$row['Description'],' folder.'?>
+											<?php echo $row['Author'],' ', 'accepted' ,' ',$row['Description'],' ','to be a new user.'?>
+											<?php } else if ($row['Action'] === "File Uploaded") {?>
+											<?php echo $row['Author'],' ',$row['Description'],' folder.'?>
+											<?php } else if ($row['Action'] === "Folder Deleted") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "Shared a File") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "Folder Created") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "Folder Updated") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "File Renamed") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
 											<?php } else if ($row['Action'] === "Document Deleted") {?>
-											<?php echo 'You ','deleted the document',' ',$row['Description'],'.'?>
-											<?php } else if ($row['Action'] === "Document Upload") {?>
-											<?php echo 'You ','uploaded the document',' ',$row['Description'],'.'?>
+											<?php echo $row['Author'],' ','deleted the document',' ',$row['Description'],'.'?>
 											<?php }?>
 										</div>
 									</td>
@@ -207,21 +207,21 @@
 									<td>
 									<div class="description">
 									<?php if($row['Action'] === "New User Approved") { ?>
-											<?php echo 'You ', 'accepted' ,' ',$row['Description'],' ','to be a new user.'?>
-											<?php } else if ($row['Action'] === "New User Denied") {?>
-											<?php echo 'You ','denied',' ',$row['Description'],' ','to be a new user.'?>
-											<?php } else if ($row['Action'] === "Profile Updated") {?>
-											<?php echo 'You ','updated your personal information.'?>
-											<?php } else if ($row['Action'] === "Uploaded a new file") {?>
-											<?php echo 'You ','uploaded a document in ',$row['Description'],' folder.'?>
-											<?php } else if ($row['Action'] === "Uploaded Multiple Files") {?>
-											<?php echo 'You ','uploaded multipe files in ',$row['Description'],' folder.'?>
-											<?php } else if ($row['Action'] === "Created A New Folder") {?>
-											<?php echo 'You ','created ',$row['Description'],' folder.'?>
+											<?php echo $row['Author'],' ', 'accepted' ,' ',$row['Description'],' ','to be a new user.'?>
+											<?php } else if ($row['Action'] === "File Uploaded") {?>
+											<?php echo $row['Author'],' ',$row['Description'],' folder.'?>
+											<?php } else if ($row['Action'] === "Folder Deleted") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "Shared a File") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "Folder Created") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "Folder Updated") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
+											<?php } else if ($row['Action'] === "File Renamed") {?>
+											<?php echo $row['Author'],' ',' ',$row['Description']?>
 											<?php } else if ($row['Action'] === "Document Deleted") {?>
-											<?php echo 'You ','deleted the document',' ',$row['Description'],'.'?>
-											<?php } else if ($row['Action'] === "Document Upload") {?>
-											<?php echo 'You ','uploaded the document',' ',$row['Description'],'.'?>
+											<?php echo $row['Author'],' ','deleted the document',' ',$row['Description'],'.'?>
 											<?php }?>
 										</div>
 									</td>

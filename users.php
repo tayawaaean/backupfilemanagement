@@ -56,19 +56,20 @@ if(isset($_GET['id'])){
                             <th class="text-center">Profile</th>
                             <th class="text-center">Name</th>
                             <th class="text-center">Username</th>
+                            <th class="text-center">User Type</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     <tbody>
-                        <?php
+                    <?php
                         include 'db_connect.php';
-                        $users = $conn->query("SELECT * FROM users ORDER BY name ASC");
+                        $users = $conn->query("SELECT * FROM users ORDER BY CASE WHEN type = 0 THEN 0 WHEN type = 1 THEN 1 ELSE 2 END, name ASC");
                         while($row= $users->fetch_assoc()):
                         ?>
                         <tr>
                             <td> 
-                                <center>
+                            <center>
                                 <div class="profile-image-container">
                                     <?php 
                                     // Check if profile picture path is empty
@@ -86,6 +87,20 @@ if(isset($_GET['id'])){
                             </td>
                             <td><?php echo $row['name'] ?></td>
                             <td><?php echo $row['username'] ?></td>
+                            <td>
+                                <?php 
+                                $userType = $row['type'];
+                                if($userType == 0) {
+                                    echo '<span style="color:red;">Needs Approval</span>';
+                                } elseif ($userType == 1) {
+                                    echo "Admin";
+                                } elseif ($userType == 2) {
+                                    echo "Employee";
+                                } else {
+                                    echo "Unknown";
+                                }
+                                ?>
+                            </td>
                             <td>
                                 <center>
                                     <div class="btn-group">

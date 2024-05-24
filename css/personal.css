@@ -6,17 +6,18 @@
 }
 
 .container {
-    max-width: 2000px;
+    max-width: 100%;
     height: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0,0.6); 
-    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    padding: 20px; /* Increased padding for better spacing */
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     border: 2px solid #82bfff;
 }
 
-.left-section, .right-section {
+.left-section,
+.right-section {
     flex: 1;
     padding: 20px;
     display: flex;
@@ -36,14 +37,15 @@
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); 
-    background-color:#15169A; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    background-color: #15169a;
 }
 
 .edit-icon {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -60,10 +62,11 @@
     margin-bottom: 20px;
 }
 
-.personal-info label, .right-section label {
+.personal-info label,
+.right-section label {
     font-weight: bold;
-    color: #15169A;
-    font-size: 17px;
+    color: #15169a;
+    font-size: 16px;
 }
 
 .form-control {
@@ -73,10 +76,13 @@
     border-radius: 5px;
     height: 50px;
     background-color: white;
-    border: 1px solid #15169A;
+    border: 1px solid #15169a;
+    font-size: 16px;
+    margin-bottom: 15px; /* Added margin between form inputs */
 }
 
 .btn-primary {
+    width: 150px;
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -98,7 +104,7 @@
 .header-container hr {
     flex: 1;
     border: 0;
-    border-top: 2px solid #15169A;
+    border-top: 2px solid #15169a;
     margin-left: 10px;
 }
 
@@ -108,7 +114,8 @@
         height: auto;
     }
 
-    .left-section, .right-section {
+    .left-section,
+    .right-section {
         padding: 10px;
     }
 
