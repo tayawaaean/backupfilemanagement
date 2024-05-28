@@ -9,21 +9,17 @@
     max-width: 100%;
     height: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    padding: 20px; /* Increased padding for better spacing */
+    padding: 20px; 
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     border: 2px solid #82bfff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.left-section,
-.right-section {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
+
 
 .profile-picture-container {
     display: flex;
@@ -89,7 +85,7 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    align-self: flex-end;
+    align-self: flex-start;
 }
 
 .btn-primary:hover {
@@ -114,10 +110,7 @@
         height: auto;
     }
 
-    .left-section,
-    .right-section {
-        padding: 10px;
-    }
+   
 
     .profile-picture {
         width: 150px;
