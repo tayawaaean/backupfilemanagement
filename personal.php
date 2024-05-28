@@ -31,35 +31,35 @@
         </div>
         <div class="personal-info">
             <div class="form-group">
-                <label for="name"><i class="fas fa-user"></i> Name:</label>
+                <label for="name">Name:</label>
                 <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>">
             </div>
             <div class="form-group">
-                <label for="username"><i class="fas fa-user-circle"></i> Username:</label>
+                <label for="username">Username:</label>
                 <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>">
             </div>
             <div class="form-group">
-                <label for="contact_number"><i class="fas fa-phone"></i> Contact Number:</label>
+                <label for="contact_number">Contact Number:</label>
                 <input type="tel" class="form-control" id="contact_number" name="contact_number" value="<?php echo htmlspecialchars($user['contact_number']); ?>">
             </div>
             <div class="form-group">
-                <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>">
             </div>
             <div class="form-group">
-                <label for="address"><i class="fas fa-map-marker-alt"></i> Address:</label>
+                <label for="address">Address:</label>
                 <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($user['address']); ?>">
             </div>
             <div class="form-group">
-                <label for="job_title"><i class="fas fa-briefcase"></i> Job Title:</label>
+                <label for="job_title">Job Title:</label>
                 <input type="text" class="form-control" id="job_title" name="job_title" value="<?php echo htmlspecialchars($user['position']); ?>">
             </div>
             <div class="form-group">
-                <label for="birthday"><i class="fas fa-birthday-cake"></i> Birthday:</label>
+                <label for="birthday">Birthday:</label>
                 <input type="date" class="form-control" id="birthday" name="birthday" value="<?php echo htmlspecialchars($user['birthday']); ?>">
             </div>
             <div class="form-group">
-                <label for="gender"><i class="fas fa-venus-mars"></i> Gender:</label>
+                <label for="gender">Gender:</label>
                 <select class="form-control" id="gender" name="gender">
                     <option value="male" <?php echo $user['gender'] == 'male' ? 'selected' : ''; ?>>Male</option>
                     <option value="female" <?php echo $user['gender'] == 'female' ? 'selected' : ''; ?>>Female</option>
@@ -67,7 +67,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="civil_status"><i class="fas fa-heart"></i> Civil Status:</label>
+                <label for="civil_status">Civil Status:</label>
                 <select class="form-control" id="civil_status" name="civil_status">
                     <option value="single" <?php echo $user['civil_status'] == 'single' ? 'selected' : ''; ?>>Single</option>
                     <option value="married" <?php echo $user['civil_status'] == 'married' ? 'selected' : ''; ?>>Married</option>
