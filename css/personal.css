@@ -3,11 +3,12 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    max-height: 780px;/* Changed */
+    
 }
 
 .container {
     max-width: 100%;
+    max-height: 780px;/* Changed */
     overflow-x: auto;/* Changed */
     border-radius: 10px;
     display: flex;
@@ -19,7 +20,9 @@
 }
 
 
-
+form{
+    margin-top: 760px;
+}
 .profile-picture-container {
     display: flex;
     align-items: center;
@@ -108,11 +111,11 @@
 @media (max-width: 1200px) {
     .container {
         flex-direction: column;
-        height: auto;
+        max-height: 100%;
     }
-
-   
-
+    form{
+        margin-top: 0;
+    }
     .profile-picture {
         width: 150px;
         height: 150px;
