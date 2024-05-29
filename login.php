@@ -25,7 +25,7 @@
   <main id="main" class=" alert-info">
   		<div id="login-left">
   			<div class="logo">
-  				<i class="fa fa-share-alt"></i>
+  				<img src= "./assets/img/4.png">
   			</div>
   		</div>
   		<div id="login-right">
