@@ -78,39 +78,6 @@ a.custom-menu-list span.icon{
                     <span class="material-symbols-outlined">history</span>
                     <span class="text">Shared Files</span>
                 </div>
-            	<div class="buttons">
-                    <button id="dropdown1" class="dropdown-button">
-                        <i class='bx bx-user' ></i>
-                    </button>                            
-                    <ul class="menu">
-                        <li>Aean Gabrielle Tayawa</li>
-                        <li>Dexter John Perdido</li>
-                        <li>Kenric Catiwa</li>
-                    </ul>
-                    <button id="dropdown2" class="dropdown-button">
-                        <i class='bx bxs-calendar' ></i>
-                    </button>                            
-                    <ul class="menu">
-						<li>January</li>
-						<li>February</li>
-						<li>March</li>
-						<li>April</li>
-						<li>May</li>
-						<li>June</li>
-						<li>July</li>
-						<li>August</li>
-						<li>September</li>
-						<li>October</li>
-						<li>November</li>
-						<li>December</li>
-                    </ul>
-                </div>
-				<div class="bottom-search">
-					<div class="search">
-						<i class="uil uil-search"></i>
-						<input type="text" placeholder="Search...">
-					</div>
-				</div>
             </div>
 			<div class="table-container">
 				<div class="dashboard-table-wrapper">

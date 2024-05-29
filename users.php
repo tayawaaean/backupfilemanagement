@@ -79,7 +79,7 @@ if(isset($_GET['id'])){
                 <img src="<?php echo htmlspecialchars($row['profile_pic'], ENT_QUOTES, 'UTF-8'); ?>" alt="Profile Image" class="profile-image" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">
                 <?php else: ?>
                 <!-- If profile picture path is empty, set default profile picture -->
-                <img src="default_profile_picture.jpg" alt="Default Profile Image" class="profile-image" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">
+                <img src=" profile_picture_461738.png" alt="Default Profile Image" class="profile-image" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">
                 <?php endif; ?>
                 <button type="button" class="btn btn-primary edit_profile" data-id="<?php echo $row['id'] ?>"><i class="fa fa-pen"></i></button>
             </div>

@@ -40,26 +40,25 @@
 <?php endif; ?>
 <?php if($_SESSION['login_type'] == 2): ?>
     <div class="boxes">
-        <div class="box box1">
-            <i class='bx bxs-user'></i>
-            <span class="text">
-                <span class="number"><?php echo $totalFiles; ?></span>
-                <span class="text">Total Files</span>
-            </span>
+	<div class="box box1">
+    <i class='bx bxs-file'></i> <!-- Changed icon to 'bxs-file' -->
+    <span class="text">
+        <span class="number"><?php echo $totalFiles; ?></span>
+        <span class="text">Total Files</span>
+    </span>
+</div>
+		<div class="box box2">
+		<i2 class="material-symbols-outlined">share</i2> <!-- Changed icon to 'share' -->
+        <span class="text">
+            <span class="number"><?php echo $totalSharedFiles; ?></span>
+            <span class="text">Shared Files</span>
+        </span>
         </div>
-        
-        <div class="box box3">
-            <i class="material-symbols-outlined">app_registration</i>
+		<div class="box box3">
+		<i2 class="material-symbols-outlined">folder_open</i2>
             <span class="text">
                 <span class="number"><?php echo $totalFolders; ?></span>
                 <span class="text">Folders</span>
-            </span>
-        </div>
-		<div class="box box2">
-            <i2 class="material-symbols-outlined">folder_open</i2>
-            <span class="text">
-                <span class="number"><?php echo $totalSharedFiles; ?></span>
-                <span class="text">Shared Files</span>
             </span>
         </div>
     </div>
