@@ -80,17 +80,17 @@
                 $login_id = $_SESSION['login_id'];
                 $user_query = $conn->query("SELECT * FROM users WHERE id = $login_id");
                 $user = $user_query->fetch_assoc();
-            ?>
-            <li>
-                <a href="#">
-                    <div class="icon">
-                        <div class="imgBx">
-                            <!-- Display user's profile picture dynamically -->
-                            <?php if(!empty($user['profile_pic'])): ?>
-                                <img src="profile_pics/<?php echo $user['profile_pic']; ?>" width="100" height="100" alt="Profile Picture">
-                            <?php else: ?>
-                                <img src="profile_pics/.png" width="100" height="100" alt="Default Profile Picture">
-                            <?php endif; ?>
+                ?>
+                <li>
+                    <a href="#">
+                        <div class="icon">
+                            <div class="imgBx">
+                                <!-- Display user's profile picture dynamically -->
+                                <?php if(!empty($user['profile_pic'])): ?>
+                                    <img src="<?php echo htmlspecialchars($user['profile_pic'], ENT_QUOTES, 'UTF-8'); ?>" width="100" height="100" alt="Profile Picture" style="border-radius: 50%; object-fit: cover;">
+                                <?php else: ?>
+                                    <img src="default_profile_picture.jpg" width="100" height="100" alt="Default Profile Picture" style="border-radius: 50%; object-fit: cover;">
+                                <?php endif; ?>
                         </div>
                     </div>
                     <div class="text"><?php echo $user['name']; ?></div>
