@@ -27,7 +27,7 @@
         </div>
         <div class="profile-picture-container" style="text-align: center; position: relative;">
             <img src="<?php echo htmlspecialchars($profile_pic, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile Picture" class="profile-picture" id="profilePicture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
-            <label class="edit-icon" for="profilePictureInput" style="position: absolute; bottom: 0; right: 0; cursor: pointer;"><i class="far fa-edit"></i></label>
+            <label class="edit-icon" for="profilePictureInput"><i class="far fa-edit"></i></label>
             <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*" onchange="loadFile(event)" style="display: none;">
         </div>
         <div class="personal-info">
@@ -76,9 +76,8 @@
                     <option value="widowed" <?php echo $user['civil_status'] == 'widowed' ? 'selected' : ''; ?>>Widowed</option>
                 </select>
             </div>
+            <button class="btn-primary" type="submit">Save</button><!-- Changed last -->
         </div>
-        <!-- Save button -->
-        <button class="btn-primary" type="submit">Save</button>
     </form>
 </div>
 <script>
