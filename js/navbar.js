@@ -1,9 +1,9 @@
-let menuToggle = document.querySelector('.menuToggle');
+let menuToggle = document.querySelector('.logo_icon');
 let sidebar = document.querySelector('.sidebar');
 const viewPanel = document.getElementById('view-panel');
 
 menuToggle.onclick= function(){
-    menuToggle.classList.toggle('active-menu');
+    //menuToggle.classList.toggle('active-menu');
     sidebar.classList.toggle('active');
     viewPanel.classList.toggle('menu-active');
 

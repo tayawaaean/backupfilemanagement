@@ -174,6 +174,7 @@ h2{
 		<div class="row">
 			<div class="card col-md-12">
 				<div class="card-body">
+				<p>Left Click to Share, Right Click to Modify</p>
 				<table width="100%">
 							<tr>
 								<th width="40%" class="">Filename</th>

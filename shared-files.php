@@ -78,6 +78,7 @@ a.custom-menu-list span.icon{
                     <span class="material-symbols-outlined">history</span>
                     <span class="text">Shared Files</span>
                 </div>
+				<p>Right click to download</p>
             </div>
 			<div class="table-container">
 				<div class="dashboard-table-wrapper">

@@ -17,15 +17,17 @@
     // You may need to adjust this logic based on your actual implementation
     $login_type = isset($_SESSION['login_type']) ? $_SESSION['login_type'] : null;
     ?>
-    <div class="menuToggle"></div>
+   <!--<div class="menuToggle"></div>-->
     <div class="sidebar">
         <ul>
+            <div class="logo_icon">
             <li class="logo">
                 <a href="#">
                     <img src="./assets/img/BNHS Logo.png" width="70" height="70">
                     <div class="text"><b>Bingao National<br>High School</b></div>
                 </a>
             </li>
+            </div>
             <div class="menulist">
                 <?php if($login_type == 1): ?>
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'home' ? 'active' : ''; ?>">
