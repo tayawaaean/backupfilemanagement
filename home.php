@@ -7,6 +7,12 @@
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+<style>
+    #TotalUsers, #PendingRegister, #TotalFiles, #UserTotalFiles, #SharedFiles, #Folders{
+        cursor: pointer; /* Change cursor to pointer on hover */
+    }
+</style>
+
 <div class="dash-content">
     <div class="overview">
         <div class="title">
@@ -15,21 +21,21 @@
         <hr>
         <?php if($_SESSION['login_type'] == 1): ?>
     <div class="boxes">
-        <div class="box box1">
+        <div class="box box1" id="TotalUsers">
             <i class='bx bxs-user'></i>
             <span class="text">
                 <span class="number"><?php echo $totalUsers; ?></span>
                 <span class="text">Total Users</span>
             </span>
         </div>
-        <div class="box box2">
+        <div class="box box2" id="TotalFiles">
             <i2 class="material-symbols-outlined">folder_open</i2>
             <span class="text">
                 <span class="number"><?php echo $totalFiles;?></span>
                 <span class="text">Total Files</span>
             </span>
         </div>
-        <div class="box box3">
+        <div class="box box3" id="PendingRegister">
             <i class="material-symbols-outlined">app_registration</i>
             <span class="text">
                 <span class="number"><?php echo $totalPendingRegister; ?></span>
@@ -39,22 +45,22 @@
     </div>
 <?php endif; ?>
 <?php if($_SESSION['login_type'] == 2): ?>
-    <div class="boxes">
-	<div class="box box1">
+<div class="boxes">
+	<div class="box box1" id="UserTotalFiles">
     <i class='bx bxs-file'></i> <!-- Changed icon to 'bxs-file' -->
     <span class="text">
         <span class="number"><?php echo $totalFiles; ?></span>
         <span class="text">Total Files</span>
     </span>
 </div>
-		<div class="box box2">
+	<div class="box box2" id="SharedFiles">
 		<i2 class="material-symbols-outlined">share</i2> <!-- Changed icon to 'share' -->
         <span class="text">
             <span class="number"><?php echo $totalSharedFiles; ?></span>
             <span class="text">Shared Files</span>
         </span>
         </div>
-		<div class="box box3">
+		<div class="box box3" id="Folders">
 		<i2 class="material-symbols-outlined">folder_open</i2>
             <span class="text">
                 <span class="number"><?php echo $totalFolders; ?></span>
@@ -75,15 +81,17 @@
             	<div class="buttons">
 					<button id="dropdown1" class="dropdown-button">
 						<i class='bx bx-user'></i>
-					</button>                            
+					</button>               
 					<ul class="menu" id="Author">
 						<li data-author="None">None</li>
+						<?php if($_SESSION['login_type'] == 1): ?>   
 						<?php 
 							$result = $conn->query("SELECT DISTINCT Author FROM activity_log");
 							while ($row = $result->fetch_assoc()): 
 						?>
 						<li data-author="<?php echo $row['Author']?>"><?php echo $row['Author']?></li>
 						<?php endwhile?>
+						<?php endif; ?>
 					</ul>
 					<button id="dropdown2" class="dropdown-button">
 						<i class='bx bxs-calendar' ></i>
@@ -146,7 +154,7 @@
 									<td>
 									<div class="description">
 									<?php if($row['Action'] === "New User Approved") { ?>
-											<?php echo $row['Author'],' ', 'accepted' ,' ',$row['Description'],' ','to be a new user.'?>
+											<?php echo $row['Author'],' ', 'approved the registration of' ,' ',$row['Description'],' ','.'?>
 											<?php } else if ($row['Action'] === "File Uploaded") {?>
 											<?php echo $row['Author'],' ',$row['Description'],' folder.'?>
 											<?php } else if ($row['Action'] === "Folder Deleted") {?>
@@ -161,6 +169,8 @@
 											<?php echo $row['Author'],' ',' ',$row['Description']?>
 											<?php } else if ($row['Action'] === "Document Deleted") {?>
 											<?php echo $row['Author'],' ','deleted the document',' ',$row['Description'],'.'?>
+											<?php } else if ($row['Action'] === "Updated User") {?>
+												<?php echo $row['Author'],' ','Update user',' ',$row['Description'],'.'?>
 											<?php }?>
 										</div>
 									</td>
@@ -185,14 +195,14 @@
 							<?php 
 							
 							// Retrieve the name from the users table based on the username
-							// $nameQuery = $conn->query("SELECT name FROM users WHERE id ='$loginId'"); //Uncomment if you want to show only the users log
-							$nameQuery = $conn->query("SELECT name FROM users"); //Comment this if you switch to show users log only
+							$nameQuery = $conn->query("SELECT name FROM users WHERE id ='$loginId'"); //Uncomment if you want to show only the users log
+							// $nameQuery = $conn->query("SELECT name FROM users"); //Comment this if you switch to show users log only
 							if ($nameQuery && $nameQuery->num_rows > 0) {
 								$name = $nameQuery->fetch_assoc()['name'];
 
 								// Fetch activity log entries based on the author's name
-								// $result = $conn->query("SELECT * FROM activity_log WHERE Author = '$name'"); //Uncomment if you want to show only the users log
-								$result = $conn->query("SELECT * FROM activity_log"); //Comment this if you switch to show users log only
+								$result = $conn->query("SELECT * FROM activity_log WHERE Author = '$name'"); //Uncomment if you want to show only the users log
+								// $result = $conn->query("SELECT * FROM activity_log"); //Comment this if you switch to show users log only
 								while ($row = $result->fetch_assoc()): 
 									$dateTime = $row['DateTime'];
 									$date = date("F j, Y", strtotime($dateTime));
@@ -368,5 +378,43 @@ function filterData() {
 		table.search(this.value).draw();
 	});
 });
+
 </script>
 
+<?php if($_SESSION['login_type'] == 2): ?>
+
+<script>
+	document.getElementById('UserTotalFiles').addEventListener('click', function() {
+        window.location.href = '/backupfilemanagement/index.php?page=files';
+    });
+
+	document.getElementById('SharedFiles').addEventListener('click', function() {
+        window.location.href = '/backupfilemanagement/index.php?page=shared-files';
+    });
+
+	document.getElementById('Folders').addEventListener('click', function() {
+        window.location.href = '/backupfilemanagement/index.php?page=files';
+    });
+</script>
+
+
+<?php endif; ?>
+
+<?php if($_SESSION['login_type'] == 1): ?>
+
+<script>
+	document.getElementById('TotalUsers').addEventListener('click', function() {
+        window.location.href = '/backupfilemanagement/index.php?page=users';
+    });
+
+	document.getElementById('PendingRegister').addEventListener('click', function() {
+        window.location.href = '/backupfilemanagement/index.php?page=users';
+    });
+
+	document.getElementById('TotalFiles').addEventListener('click', function() {
+        window.location.href = '/backupfilemanagement/index.php?page=files';
+    });
+</script>
+
+
+<?php endif; ?>

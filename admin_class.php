@@ -327,19 +327,56 @@ Class Action {
 	}
 	
 	function save_user(){
-		extract($_POST);
+		// Sanitize inputs
+		$name = $this->db->real_escape_string($_POST['name']);
+		$username = $this->db->real_escape_string($_POST['username']);
+		$type = $this->db->real_escape_string($_POST['type']);
+		$id = isset($_POST['id']) ? $this->db->real_escape_string($_POST['id']) : '';
+	
+		// Build data string
 		$data = " name = '$name' ";
 		$data .= ", username = '$username' ";
 		$data .= ", type = '$type' ";
+	
+		// Check if user exists
+		$user_data = $this->db->query("SELECT type FROM users WHERE username = '$username'")->fetch_assoc();
+		if(!$user_data){
+			return 0; // User not found
+		}
+		$usertype = $user_data['type'];
+	
+		// Get current user data
+		$user_id = $_SESSION['login_id'];
+		$myuser_data = $this->db->query("SELECT name, type FROM users WHERE id = $user_id")->fetch_assoc();
+		$Author = $myuser_data['name'];
+		$job_title = ($myuser_data['type'] == 1) ? 'Admin' : 'Employee';
+		$timestamp = date('Y-m-d H:i:s');
+	
 		if(empty($id)){
-			$save = $this->db->query("INSERT INTO users set ".$data);
-		}else{
-			$save = $this->db->query("UPDATE users set ".$data." where id = ".$id);
+			// Insert new user
+			$save = $this->db->query("INSERT INTO users SET ".$data);
+		} else {
+			// Update existing user
+			$save = $this->db->query("UPDATE users SET ".$data." WHERE id = ".$id);
 		}
 		if($save){
-			return 1;
+			if ($usertype == 0) {
+				$Action = "New User Approved";
+				$mytype = ($myuser_data['type'] == 1) ? 'Admin' : 'Employee';
+				$Description = $name . ' as ' . $mytype;
+				$log_query = "INSERT INTO activity_log (Author, Job_title, DateTime, Action, Description) VALUES ('$Author', '$job_title', '$timestamp', '$Action', '$Description')";
+				$this->db->query($log_query);
+			} else {
+				$Action = "Updated User";
+				$Description = $name;
+				$log_query = "INSERT INTO activity_log (Author, Job_title, DateTime, Action, Description) VALUES ('$Author', '$job_title', '$timestamp', '$Action', '$Description')";
+				$this->db->query($log_query);
+			}
+			return 1; // Success
 		}
-	}	
+		return 0; // Failed
+	}
+	
 
 		
 }
