@@ -16,26 +16,29 @@ Class Action {
   
 	
 	function login(){
-		extract($_POST);
-		$password = md5($password); // Encrypt the input password using MD5 encryption
-	
-		$qry = $this->db->query("SELECT * FROM users where username = '".$username."' ");
-		if($qry->num_rows > 0){
-			$user = $qry->fetch_assoc();
-			// Check if the stored password matches the input password after decoding it
-			if($user['password'] == $password){
-				foreach ($user as $key => $value) {
-					if($key != 'password' && !is_numeric($key))
-						$_SESSION['login_'.$key] = $value;
-				}
-				return 1; // Login successful
-			}else{
-				return 2; // Incorrect password
-			}	
-		}else{
-			return 3; // User not found
-		}
-	}
+    extract($_POST);
+    $password = md5($password); // Encrypt the input password using MD5 encryption
+
+    $qry = $this->db->query("SELECT * FROM users WHERE username = '".$username."' ");
+    if($qry->num_rows > 0){
+        $user = $qry->fetch_assoc();
+        // Check if the stored password matches the input password after encoding it
+        if($user['password'] == $password){
+            if($user['type'] == 0){
+                return 4; // User not yet approved
+            }
+            foreach ($user as $key => $value) {
+                if($key != 'password' && !is_numeric($key))
+                    $_SESSION['login_'.$key] = $value;
+            }
+            return 1; // Login successful
+        }else{
+            return 2; // Incorrect password
+        }
+    }else{
+        return 3; // User not found
+    }
+}
 	
 	function register(){
 		extract($_POST);

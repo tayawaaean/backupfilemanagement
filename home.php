@@ -532,39 +532,39 @@
 <script>
     <?php if($_SESSION['login_type'] == 1): ?>
         document.getElementById('TotalUsers').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=users';
+            window.location.href = 'index.php?page=users';
         });
 
         document.getElementById('PendingRegister').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=users';
+            window.location.href = 'index.php?page=users';
         });
 
         document.getElementById('TotalFiles').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=files';
+            window.location.href = 'index.php?page=files';
         });
 
         document.getElementById('totalsharedfiles').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=files';
+            window.location.href = 'index.php?page=files';
         });
 
         document.getElementById('mysharedfiles').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=files';
+            window.location.href = 'index.php?page=files';
         });
 
         document.getElementById('totalfolders').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=files';
+            window.location.href = 'index.php?page=files';
         });
     <?php endif; ?>
 
     <?php if($_SESSION['login_type'] == 2): ?>
         document.getElementById('UserTotalFiles').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=files';
+            window.location.href = 'index.php?page=files';
         });
         document.getElementById('SharedFiles').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=shared-files';
+            window.location.href = 'index.php?page=shared-files';
         });
         document.getElementById('Folders').addEventListener('click', function() {
-            window.location.href = '/backupfilemanagement/index.php?page=files';
+            window.location.href = 'index.php?page=files';
         });
     <?php endif; ?>
 </script>

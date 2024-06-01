@@ -79,9 +79,9 @@ if(isset($_GET['id'])){
                 <img src="<?php echo htmlspecialchars($row['profile_pic'], ENT_QUOTES, 'UTF-8'); ?>" alt="Profile Image" class="profile-image" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">
                 <?php else: ?>
                 <!-- If profile picture path is empty, set default profile picture -->
-                <img src=" profile_picture_461738.png" alt="Default Profile Image" class="profile-image" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">
+                <img src=".png" alt="Default Profile Image" class="profile-image" style="width: 75px; height: 75px; border-radius: 50%; object-fit: cover;">
                 <?php endif; ?>
-                <button type="button" class="btn btn-primary edit_profile" data-id="<?php echo $row['id'] ?>"><i class="fa fa-pen"></i></button>
+                <button type="button" class="btn btn-primary edit_profile" data-id="<?php echo $row['id'] ?>"title="Update User Profile"><i class="fa fa-pen"></i></button>
             </div>
                                 </center>
                             </td>
@@ -104,8 +104,8 @@ if(isset($_GET['id'])){
                             <td>
                                 <center>
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-primary edit_user" data-id="<?php echo $row['id'] ?>"><i class="fa fa-pen"></i></button>
-                                        <button type="button" class="btn btn-primary delete_user" data-id="<?php echo $row['id'] ?>"><i class="fa fa-user-minus"></i></button>
+                                        <button type="button" class="btn btn-primary edit_user" data-id="<?php echo $row['id'] ?>"title="Update User"><i class="fa fa-pen"></i></button>
+                                        <button type="button" class="btn btn-primary delete_user" data-id="<?php echo $row['id'] ?>"title="Delete User"><i class="fa fa-user-minus"></i></button>
                                     </div>
                                 </center>
                             </td>

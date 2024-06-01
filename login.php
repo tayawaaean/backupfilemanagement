@@ -84,7 +84,7 @@
 						</div>
 
 						<div class="form-group">
-							<input type="text" id="username3" name="username3" required>
+							<input type="text" id="email" name="email" required>
 							<span>Email</span>
 						</div>
 
@@ -236,24 +236,49 @@ $(document).ready(function() {
             error: function(err) {
                 console.log(err);
                 $('#Sign-in').removeAttr('disabled').html('Sign Up');
+                var errorAlert = $('<div class="alert alert-danger">An error occurred. Please try again.</div>');
+                $('#signup-form').prepend(errorAlert);
+                setTimeout(function() {
+                    errorAlert.remove();
+                }, 2000);
             },
             success: function(resp) {
-                // Handle success or error response accordingly
-                console.log(resp);
+                $('#Sign-in').removeAttr('disabled').html('Sign Up');
                 if (resp.status === 'success') {
-                    // Reload the page if signup was successful
-					alert(resp.message);
-                    location.reload();
+                    // Display success message and redirect
+                    var successAlert = $('<div class="alert alert-success">You are now registered. Please wait for approval.</div>');
+                    $('#signup-form').prepend(successAlert);
+                    setTimeout(function() {
+                        successAlert.remove();
+                        window.location.href = 'login.php';
+                    }, 2000);
+                } else if (resp.status === 'username_exists') {
+                    // Display username exists error
+                    var usernameExistsAlert = $('<div class="alert alert-danger">Username already exists. Please choose a different username.</div>');
+                    $('#signup-form').prepend(usernameExistsAlert);
+                    setTimeout(function() {
+                        usernameExistsAlert.remove();
+                    }, 2000);
+                } else if (resp.status === 'password_mismatch') {
+                    // Display password mismatch error
+                    var passwordMismatchAlert = $('<div class="alert alert-danger">Password and confirm password do not match.</div>');
+                    $('#signup-form').prepend(passwordMismatchAlert);
+                    setTimeout(function() {
+                        passwordMismatchAlert.remove();
+                    }, 2000);
                 } else {
-                    // Handle error message display
-                    // Example: $('#error-message').text(resp.message);
-					alert(resp.message);
-					$('#Sign-in').removeAttr('disabled').html('Sign Up');
+                    // Handle other error messages
+                    var errorAlert = $('<div class="alert alert-danger">' + resp.message + '</div>');
+                    $('#signup-form').prepend(errorAlert);
+                    setTimeout(function() {
+                        errorAlert.remove();
+                    }, 2000);
                 }
             }
         });
     });
 });
+
 
 
 </script>

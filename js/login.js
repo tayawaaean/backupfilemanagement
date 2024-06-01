@@ -1,28 +1,46 @@
-$('#login-form').submit(function(e){
-    e.preventDefault()
+$(document).ready(function() {
+    $('#login-form').submit(function(e) {
+      e.preventDefault();
+      $('#Login').attr('disabled', true).html('Logging in...');
 
-    $('#Login').attr('disabled',true).html('Logging in...');
-    if($(this).find('.alert-danger').length > 0 )
-        $(this).find('.alert-danger').remove();
-    $.ajax({
-        url:'ajax.php?action=login',
-        method:'POST',
-        data:$(this).serialize(),
-        error:err=>{
-            console.log(err)
-    $('#Login').removeAttr('disabled').html('Login');
-
+      $.ajax({
+        url: 'ajax.php?action=login',
+        method: 'POST',
+        data: $(this).serialize(),
+        success: function(resp) {
+          $('#Login').removeAttr('disabled').html('Login');
+          if (resp == 1) {
+            // Login successful
+            window.location.href = 'index.php?page=home';
+          } else if (resp == 2) {
+            // Incorrect password
+            $('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>');
+          } else if (resp == 3) {
+            // User not found
+            $('#login-form').prepend('<div class="alert alert-danger">User not found. Please check your username.</div>');
+          } else if (resp == 4) {
+            // User not yet approved
+            $('#login-form').prepend('<div class="alert alert-danger">Your account is pending for Admin approval.</div>');
+          } else {
+            $('#login-form').prepend('<div class="alert alert-danger">An unknown error occurred. Please try again.</div>');
+          }
+          // Redirect to login.php after 2 seconds
+          setTimeout(function() {
+            window.location.href = 'login.php';
+          }, 2000);
         },
-        success:function(resp){
-            if(resp == 1){
-                location.reload('index.php?page=home');
-            }else{
-                $('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
-                $('#Login').removeAttr('disabled').html('Login');
-            }
+        error: function(err) {
+          console.log(err);
+          $('#Login').removeAttr('disabled').html('Login');
+          $('#login-form').prepend('<div class="alert alert-danger">An error occurred. Please try again.</div>');
+          // Redirect to login.php after 2 seconds
+          setTimeout(function() {
+            window.location.href = 'login.php';
+          }, 2000);
         }
-    })
-})
+      });
+    });
+  });
 
 // JavaScript code to handle the signup button click event
 document.getElementById("Signup").addEventListener("click", function() {
