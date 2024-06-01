@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <style>
-    #TotalUsers, #PendingRegister, #TotalFiles, #UserTotalFiles, #SharedFiles, #Folders{
+    #TotalUsers, #PendingRegister, #TotalFiles, #UserTotalFiles, #SharedFiles, #Folders, #mysharedfiles, #totalfolders, #totalsharedfiles{
         cursor: pointer; /* Change cursor to pointer on hover */
     }
 </style>
@@ -19,7 +19,7 @@
             <h2>Dashboard</h2>
         </div>
         <hr>
-        <?php if($_SESSION['login_type'] == 1): ?>
+<?php if($_SESSION['login_type'] == 1): ?>
     <div class="boxes">
         <div class="box box1" id="TotalUsers">
             <i class='bx bxs-user'></i>
@@ -43,7 +43,61 @@
             </span>
         </div>
     </div>
+
+    <div class="boxes">
+        <?php
+            $sqltotal_shared_files = "SELECT COUNT(*) as total_shared_files FROM files WHERE is_public = 1";
+            $resultltotal_shared_files = $conn->query($sqltotal_shared_files);
+            $totalsharedfiles = 0;
+            if ($resultltotal_shared_files->num_rows > 0) {
+                $rowtotalsharedfiles = $resultltotal_shared_files->fetch_assoc();
+                $totalsharedfiles = $rowtotalsharedfiles["total_shared_files"];
+            }
+        ?>
+        <div class="box box2" id="totalsharedfiles">
+            <i2 class="material-symbols-outlined">folder_open</i2>
+            <span class="text">
+                <span class="number"><?php echo $totalsharedfiles;?></span>
+                <span class="text">Total Shared Files</span>
+            </span>
+        </div>
+        <?php
+            $sqlmytotal_shared_files = "SELECT COUNT(*) as mytotal_shared_files FROM files WHERE user_id = $loginId && is_public = 1";
+            $resultmytotal_shared_files = $conn->query($sqlmytotal_shared_files);
+            $mytotalsharedfiles = 0;
+            if ($resultmytotal_shared_files->num_rows > 0) {
+                $rowmytotalsharedfiles = $resultmytotal_shared_files->fetch_assoc();
+                $mytotalsharedfiles = $rowmytotalsharedfiles["mytotal_shared_files"];
+            }
+        ?>
+        <div class="box box2" id="mysharedfiles">
+            <i2 class="material-symbols-outlined">folder_open</i2>
+            <span class="text">
+                <span class="number"><?php echo $mytotalsharedfiles;?></span>
+                <span class="text">My Shared Files</span>
+            </span>
+        </div>
+
+        <?php
+            $sqltotal_folder = "SELECT COUNT(*) as total_folder FROM folders";
+            $resulttotal_folder = $conn->query($sqltotal_folder);
+            $total_folder = 0;
+            if ($resulttotal_folder->num_rows > 0) {
+                $rowtotal_folder = $resulttotal_folder->fetch_assoc();
+                $total_folder = $rowtotal_folder["total_folder"];
+            }
+        ?>
+        <div class="box box2" id="totalfolders">
+            <i2 class="material-symbols-outlined">folder_open</i2>
+            <span class="text">
+                <span class="number"><?php echo $total_folder;?></span>
+                <span class="text">Total Folders</span>
+            </span>
+        </div>
+    </div>
 <?php endif; ?>
+
+
 <?php if($_SESSION['login_type'] == 2): ?>
 <div class="boxes">
 	<div class="box box1" id="UserTotalFiles">
@@ -76,6 +130,14 @@
             <div class="act">
                 <span class="material-symbols-outlined">history</span>
                 <span class="text">Activity Log</span>
+            </div>
+            <div class="button-container">
+                <button id="edit-toggle" class="edit-button">Edit</button>
+                <div class="edit-controls">
+                    <button id="select-all-btn" class="select-button">Select All</button>
+                    <button id="delete-selected" class="delete-button">Delete Selected</button>
+                    <button id="delete-all" class="delete-button">Delete All</button>
+                </div>
             </div>
             <div class="buttons">
                 <button id="dropdown1" class="dropdown-button">
@@ -118,14 +180,9 @@
                 </div>
             </div>
         </div>
-        <div class="button-container">
-    	<button id="edit-toggle" class="edit-button">Edit</button>
-    		<div class="edit-controls">
-		<button id="select-all-btn" class="select-button">Select All</button>
-        <button id="delete-selected" class="delete-button">Delete Selected</button>
-        <button id="delete-all" class="delete-button">Delete All</button>
-    </div>
-</div>
+
+        
+        
 
         <div class="table-container">
             <div class="dashboard-table-wrapper">
@@ -257,154 +314,148 @@
 
 
 
-<script>document.addEventListener('DOMContentLoaded', function () {
-    const editToggle = document.getElementById('edit-toggle');
-    const selectAllCheckbox = document.getElementById('select-all');
-    const checkboxes = document.querySelectorAll('.select-row');
-    const deleteSelectedButton = document.getElementById('delete-selected');
-    const deleteAllButton = document.getElementById('delete-all');
-    const editControls = document.querySelector('.edit-controls');
-    const selectAllBtn = document.getElementById('select-all-btn');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editToggle = document.getElementById('edit-toggle');
+        const selectAllCheckbox = document.getElementById('select-all');
+        const checkboxes = document.querySelectorAll('.select-row');
+        const deleteSelectedButton = document.getElementById('delete-selected');
+        const deleteAllButton = document.getElementById('delete-all');
+        const editControls = document.querySelector('.edit-controls');
+        const selectAllBtn = document.getElementById('select-all-btn');
 
-    editToggle.addEventListener('click', function () {
-        const isEditing = editToggle.textContent === 'Done';
+        editToggle.addEventListener('click', function () {
+            const isEditing = editToggle.textContent === 'Done';
 
-        editToggle.textContent = isEditing ? 'Edit' : 'Done';
-        editControls.style.display = isEditing ? 'none' : 'block';
-        selectAllCheckbox.style.display = isEditing ? 'none' : 'inline-block';
-        checkboxes.forEach(checkbox => {
-            checkbox.style.display = isEditing ? 'none' : 'inline-block';
+            editToggle.textContent = isEditing ? 'Edit' : 'Done';
+            editControls.style.display = isEditing ? 'none' : 'block';
+            selectAllCheckbox.style.display = isEditing ? 'none' : 'inline-block';
+            checkboxes.forEach(checkbox => {
+                checkbox.style.display = isEditing ? 'none' : 'inline-block';
+            });
         });
-    });
 
-    selectAllBtn.addEventListener('click', function () {
-        const allSelected = Array.from(checkboxes).every(checkbox => checkbox.checked);
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = !allSelected;
+        selectAllBtn.addEventListener('click', function () {
+            const table = $('#ActivityLog').DataTable();
+            const allVisibleRows = table.rows({ page: 'current', search: 'applied' }).nodes();
+            const allSelected = Array.from(allVisibleRows).every(row => $(row).find('.select-row').prop('checked'));
+            
+            $(allVisibleRows).find('.select-row').prop('checked', !allSelected);
+            selectAllCheckbox.checked = !allSelected;
         });
-        selectAllCheckbox.checked = !allSelected;
-    });
 
-    selectAllCheckbox.addEventListener('change', function () {
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = this.checked;
+        selectAllCheckbox.addEventListener('change', function () {
+            const table = $('#ActivityLog').DataTable();
+            const allVisibleRows = table.rows({ page: 'current', search: 'applied' }).nodes();
+            const allSelected = Array.from(allVisibleRows).every(row => $(row).find('.select-row').prop('checked'));
+
+            $(allVisibleRows).find('.select-row').prop('checked', !allSelected);
         });
-    });
 
-    deleteSelectedButton.addEventListener('click', function () {
-        const selectedIds = Array.from(checkboxes)
-            .filter(checkbox => checkbox.checked)
-            .map(checkbox => checkbox.dataset.id);
-        
-        if (selectedIds.length > 0) {
-            if (confirm('Are you sure you want to delete selected logs?')) {
+        deleteSelectedButton.addEventListener('click', function () {
+            const selectedIds = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.dataset.id);
+            
+            if (selectedIds.length > 0) {
+                if (confirm('Are you sure you want to delete selected logs?')) {
+                    fetch('delete_logs.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ids: selectedIds })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            selectedIds.forEach(id => {
+                                document.querySelector(`.select-row[data-id="${id}"]`).closest('tr').remove();
+                            });
+                        } else {
+                            alert('Failed to delete selected logs.');
+                        }
+                    });
+                }
+            } else {
+                alert('No logs selected.');
+            }
+        });
+        deleteAllButton.addEventListener('click', function () {
+            if (confirm('Are you sure you want to delete all logs?')) {
                 fetch('delete_logs.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ ids: selectedIds })
+                    body: JSON.stringify({ deleteAll: true })
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        selectedIds.forEach(id => {
-                            document.querySelector(`.select-row[data-id="${id}"]`).closest('tr').remove();
-                        });
+                        document.querySelectorAll('.table tbody tr').forEach(row => row.remove());
                     } else {
-                        alert('Failed to delete selected logs.');
+                        alert('Failed to delete all logs.');
                     }
                 });
             }
-        } else {
-            alert('No logs selected.');
-        }
+        });
     });
-
-    deleteAllButton.addEventListener('click', function () {
-        if (confirm('Are you sure you want to delete all logs?')) {
-            fetch('delete_logs.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ deleteAll: true })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.querySelectorAll('.table tbody tr').forEach(row => row.remove());
-                } else {
-                    alert('Failed to delete all logs.');
-                }
-            });
-        }
-    });
-});
-
-
 </script>
-
+</script>
+</script>
 <script>
-// Selecting the dropdown buttons and menus
-const dropdown1 = document.getElementById('dropdown1');
-const dropdown2 = document.getElementById('dropdown2');
-const menu1 = dropdown1.nextElementSibling;
-const menu2 = dropdown2.nextElementSibling;
-const options1 = menu1.querySelectorAll('li');
-const options2 = menu2.querySelectorAll('li');
+    const dropdown1 = document.getElementById('dropdown1');
+    const dropdown2 = document.getElementById('dropdown2');
+    const menu1 = dropdown1.nextElementSibling;
+    const menu2 = dropdown2.nextElementSibling;
+    const options1 = menu1.querySelectorAll('li');
+    const options2 = menu2.querySelectorAll('li');
 
-// Function to close dropdown menus
-function closeDropdowns() {
-    menu1.classList.remove('menu-open');
-    menu2.classList.remove('menu-open');
-}
-
-// Adding click event listener to the document body
-document.body.addEventListener('click', (event) => {
-    const isClickInsideDropdown1 = dropdown1.contains(event.target) || menu1.contains(event.target);
-    const isClickInsideDropdown2 = dropdown2.contains(event.target) || menu2.contains(event.target);
-    
-    if (!isClickInsideDropdown1 && !isClickInsideDropdown2) {
-        closeDropdowns();
+    // Function to close dropdown menus
+    function closeDropdowns() {
+        menu1.classList.remove('menu-open');
+        menu2.classList.remove('menu-open');
     }
-});
 
-// Adding click event listener to the first dropdown button
-dropdown1.addEventListener('click', () => {
-    menu1.classList.toggle('menu-open'); // Toggle visibility directly on menu1
-    menu2.classList.remove('menu-open'); // Close menu2
-});
-
-// Adding click event listeners to each option of the first dropdown
-options1.forEach(option => {
-    option.addEventListener('click', () => {
-        closeDropdowns();
-        options1.forEach(opt => {
-            opt.classList.remove('active-mm');
-        });
-        option.classList.add('active-mm');
+    // Adding click event listener to the document body
+    document.body.addEventListener('click', (event) => {
+        const isClickInsideDropdown1 = dropdown1.contains(event.target) || menu1.contains(event.target);
+        const isClickInsideDropdown2 = dropdown2.contains(event.target) || menu2.contains(event.target);
+        
+        if (!isClickInsideDropdown1 && !isClickInsideDropdown2) {
+            closeDropdowns();
+        }
     });
-});
 
-// Adding click event listener to the second dropdown button
-dropdown2.addEventListener('click', () => {
-    menu2.classList.toggle('menu-open'); // Toggle visibility directly on menu2
-    menu1.classList.remove('menu-open'); // Close menu1
-});
-
-// Adding click event listeners to each option of the second dropdown
-options2.forEach(option => {
-    option.addEventListener('click', () => {
-        closeDropdowns();
-        options2.forEach(opt => {
-            opt.classList.remove('active-mm');
-        });
-        option.classList.add('active-mm');
+    dropdown1.addEventListener('click', () => {
+        menu1.classList.toggle('menu-open');
+        menu2.classList.remove('menu-open');
     });
-});
+
+    options1.forEach(option => {
+        option.addEventListener('click', () => {
+            closeDropdowns();
+            options1.forEach(opt => {
+                opt.classList.remove('active-mm');
+            });
+            option.classList.add('active-mm');
+        });
+    });
+    dropdown2.addEventListener('click', () => {
+        menu2.classList.toggle('menu-open');
+        menu1.classList.remove('menu-open');
+    });
+    options2.forEach(option => {
+        option.addEventListener('click', () => {
+            closeDropdowns();
+            options2.forEach(opt => {
+                opt.classList.remove('active-mm');
+            });
+            option.classList.add('active-mm');
+        });
+    });
 </script>
-
 <script>
 	$(document).ready(function() {
     var table = $('#ActivityLog').DataTable({
@@ -413,19 +464,19 @@ options2.forEach(option => {
         "language": {
             "info": "Showing _START_ to _END_ of _TOTAL_ entries"
         },
-        "order": [[1, 'desc'], [2, 'desc']], // Sort by Date column (index 1) and Time column (index 2) in descending order
+        "order": [[2, 'desc'], [3, 'desc']], // Sort by Date column (index 1) and Time column (index 2) in descending order
         "columnDefs": [{
             "targets": 4,
             "orderable": false
         }, {
-            "targets": 1,
+            "targets": 2,
             "type": "date-eu", // Use "date-eu" type for the date column
             "render": function(data, type, row) {
                 // Parse the date string to a Date object for proper sorting
                 return type === 'sort' ? new Date(data) : data;
             }
         }, {
-            "targets": 2,
+            "targets": 3,
             "type": "time", // Use "time" type for the time column
             "render": function(data, type, row) {
                 // Parse the time string to a time object for proper sorting
@@ -433,87 +484,87 @@ options2.forEach(option => {
             }
         }],
     });
-var currentAuthor = '';
-var currentMonth = '';
-$('#Author li').click(function() {
-    var selectedAuthor = $(this).data('author');
+    var currentAuthor = '';
+    var currentMonth = '';
+    $('#Author li').click(function() {
+        var selectedAuthor = $(this).data('author');
 
-    if (selectedAuthor === 'None') {
-        currentAuthor = '';
-    } else {
-        currentAuthor = selectedAuthor;
+        if (selectedAuthor === 'None') {
+            currentAuthor = '';
+        } else {
+            currentAuthor = selectedAuthor;
+        }
+
+        filterData();
+    });
+
+    $('.menu li').click(function() {
+        var selectedMonth = $(this).data('month');
+
+        if (selectedMonth === 'None') {
+            currentMonth = '';
+        } else {
+            currentMonth = selectedMonth;
+        }
+
+        filterData();
+    });
+
+
+    $('#ActivityLog th:eq(1)').click(function() {
+        var order = table.order()[0];
+        var newOrder = order[1] === 'asc' ? 'asc' : 'desc';
+        table.order([1, newOrder]).draw();
+    });
+    function filterData() {
+        if (currentAuthor === '' && currentMonth === '') {
+            table.search('').columns().search('').draw();
+        } else {
+            table.columns(1).search(currentAuthor).columns(2).search(currentMonth).draw();
+        }
     }
-
-    filterData();
-});
-
-$('.menu li').click(function() {
-    var selectedMonth = $(this).data('month');
-
-    if (selectedMonth === 'None') {
-        currentMonth = '';
-    } else {
-        currentMonth = selectedMonth;
-    }
-
-    filterData();
-});
-
-$('#ActivityLog th:eq(1)').click(function() {
-    var order = table.order()[0]; // Get the current order
-    var newOrder = order[1] === 'asc' ? 'asc' : 'desc'; // Toggle between asc and desc
-
-    table.order([1, newOrder]).draw(); // Apply the new order to the date column
-});
-
-function filterData() {
-    if (currentAuthor === '' && currentMonth === '') {
-        table.search('').columns().search('').draw();
-    } else {
-        table.columns(0).search(currentAuthor).columns(1).search(currentMonth).draw();
-    }
-}
-	$('#custom-search').on('keyup', function() {
-		table.search(this.value).draw();
-	});
-});
+        $('#custom-search').on('keyup', function() {
+            table.search(this.value).draw();
+        });
+    });
 
 </script>
-
-<?php if($_SESSION['login_type'] == 2): ?>
-
 <script>
-	document.getElementById('UserTotalFiles').addEventListener('click', function() {
-        window.location.href = '/backupfilemanagement/index.php?page=files';
-    });
+    <?php if($_SESSION['login_type'] == 1): ?>
+        document.getElementById('TotalUsers').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=users';
+        });
 
-	document.getElementById('SharedFiles').addEventListener('click', function() {
-        window.location.href = '/backupfilemanagement/index.php?page=shared-files';
-    });
+        document.getElementById('PendingRegister').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=users';
+        });
 
-	document.getElementById('Folders').addEventListener('click', function() {
-        window.location.href = '/backupfilemanagement/index.php?page=files';
-    });
+        document.getElementById('TotalFiles').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=files';
+        });
+
+        document.getElementById('totalsharedfiles').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=files';
+        });
+
+        document.getElementById('mysharedfiles').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=files';
+        });
+
+        document.getElementById('totalfolders').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=files';
+        });
+    <?php endif; ?>
+
+    <?php if($_SESSION['login_type'] == 2): ?>
+        document.getElementById('UserTotalFiles').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=files';
+        });
+        document.getElementById('SharedFiles').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=shared-files';
+        });
+        document.getElementById('Folders').addEventListener('click', function() {
+            window.location.href = '/backupfilemanagement/index.php?page=files';
+        });
+    <?php endif; ?>
 </script>
-
-
-<?php endif; ?>
-
-<?php if($_SESSION['login_type'] == 1): ?>
-
-<script>
-	document.getElementById('TotalUsers').addEventListener('click', function() {
-        window.location.href = '/backupfilemanagement/index.php?page=users';
-    });
-
-	document.getElementById('PendingRegister').addEventListener('click', function() {
-        window.location.href = '/backupfilemanagement/index.php?page=users';
-    });
-
-	document.getElementById('TotalFiles').addEventListener('click', function() {
-        window.location.href = '/backupfilemanagement/index.php?page=files';
-    });
-</script>
-
-
-<?php endif; ?>
