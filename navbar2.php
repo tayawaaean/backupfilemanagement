@@ -24,7 +24,7 @@
             <li class="logo">
                 <a href="#">
                     <img src="./assets/img/BNHS Logo.png" width="70" height="70">
-                    <div class="text"><b>Bingao National<br>High School</b></div>
+                    <div class="text-head"><b>Bingao National<br>High School</b></div>
                 </a>
             </li>
             </div>
@@ -33,45 +33,45 @@
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'home' ? 'active' : ''; ?>">
                         <a href="index.php?page=home">
                             <div class="icon"><ion-icon name="home"></ion-icon></div>
-                            <div class="text">Home</div>
+                            <div class="text-nav">Home</div>
                         </a>
                     </li>
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'files' ? 'active' : ''; ?>">
                         <a href="index.php?page=files">
                             <div class="icon"><ion-icon name="document"></ion-icon></div>
-                            <div class="text">Files</div>
+                            <div class="text-nav">Files</div>
                         </a>
                     </li>
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'users' ? 'active' : ''; ?>">
                         <a href="index.php?page=users">
                             <div class="icon"><ion-icon name="people"></ion-icon></div>
-                            <div class="text">Users</div>
+                            <div class="text-nav">Users</div>
                         </a>
                     </li>
                 <?php elseif($login_type == 2): ?>
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'employee' ? 'active' : ''; ?>">
                         <a href="index.php?page=home">
                             <div class="icon"><ion-icon name="home"></ion-icon></div>
-                            <div class="text">Home</div>
+                            <div class="text-nav">Home</div>
                         </a>
                     </li>
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'files' ? 'active' : ''; ?>">
                         <a href="index.php?page=files">
                             <div class="icon"><ion-icon name="document"></ion-icon></div>
-                            <div class="text">Files</div>
+                            <div class="text-nav">Files</div>
                         </a>
                     </li>
                     <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'personal' ? 'active' : ''; ?>">
                         <a href="index.php?page=personal">
                             <div class="icon"><ion-icon name="people"></ion-icon></div>
-                            <div class="text">Personal Information</div>
+                            <div class="text-nav">Personal Information</div>
                         </a>
                     </li>
                 <?php endif; ?>
                 <li class="<?php echo isset($_GET['page']) && $_GET['page'] == 'shared-files' ? 'active' : ''; ?>">
                     <a href="index.php?page=shared-files">
                         <div class="icon"><ion-icon name="share"></ion-icon></div>
-                        <div class="text">Shared Files</div>
+                        <div class="text-nav">Shared Files</div>
                     </a>
                 </li>
             </div>
@@ -91,11 +91,15 @@
                                 <?php if(!empty($user['profile_pic'])): ?>
                                     <img src="<?php echo htmlspecialchars($user['profile_pic'], ENT_QUOTES, 'UTF-8'); ?>" width="100" height="100" alt="Profile Picture" style="border-radius: 50%; object-fit: cover;">
                                 <?php else: ?>
-                                    <img src="default_profile_picture.jpg" width="100" height="100" alt="Default Profile Picture" style="border-radius: 50%; object-fit: cover;">
+                                    <img src="default_profile_picture.jpg" width="100" height="100" style="border-radius: 50%; object-fit: cover;">
                                 <?php endif; ?>
                         </div>
                     </div>
-                    <div class="text"><?php echo $user['name']; ?></div>
+                    <div class="text-wrapper">
+                        <div class="text-name">
+                            <?php echo $user['name']; ?>
+                        </div>
+                    </div>
                 </a>
             </li>
 
@@ -103,7 +107,7 @@
                 <li>
                     <a href="logout.php">
                         <div class="icon"><ion-icon name="log-out"></ion-icon></div>
-                        <div class="text">Logout</div>
+                        <div class="text-nav">Logout</div>
                     </a>
                 </li>
             </div>
