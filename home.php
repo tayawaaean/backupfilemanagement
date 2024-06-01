@@ -36,7 +36,7 @@
             </span>
         </div>
         <div class="box box3" id="PendingRegister">
-            <i class="material-symbols-outlined">app_registration</i>
+            <i3 class="material-symbols-outlined">app_registration</i3>
             <span class="text">
                 <span class="number"><?php echo $totalPendingRegister; ?></span>
                 <span class="text">Pending Register</span>
@@ -54,8 +54,8 @@
                 $totalsharedfiles = $rowtotalsharedfiles["total_shared_files"];
             }
         ?>
-        <div class="box box2" id="totalsharedfiles">
-            <i2 class="material-symbols-outlined">folder_open</i2>
+        <div class="box box1" id="totalsharedfiles">
+        <i class="material-symbols-outlined">share</i>
             <span class="text">
                 <span class="number"><?php echo $totalsharedfiles;?></span>
                 <span class="text">Total Shared Files</span>
@@ -71,7 +71,7 @@
             }
         ?>
         <div class="box box2" id="mysharedfiles">
-            <i2 class="material-symbols-outlined">folder_open</i2>
+        <i2 class="material-symbols-outlined">share</i2>
             <span class="text">
                 <span class="number"><?php echo $mytotalsharedfiles;?></span>
                 <span class="text">My Shared Files</span>
@@ -87,8 +87,8 @@
                 $total_folder = $rowtotal_folder["total_folder"];
             }
         ?>
-        <div class="box box2" id="totalfolders">
-            <i2 class="material-symbols-outlined">folder_open</i2>
+        <div class="box box3" id="totalfolders">
+            <i3 class="material-symbols-outlined">folder_open</i3>
             <span class="text">
                 <span class="number"><?php echo $total_folder;?></span>
                 <span class="text">Total Folders</span>
@@ -115,7 +115,7 @@
         </span>
         </div>
 		<div class="box box3" id="Folders">
-		<i class="material-symbols-outlined">folder_open</i>
+		<i3 class="material-symbols-outlined">folder_open</i3>
             <span class="text">
                 <span class="number"><?php echo $totalFolders; ?></span>
                 <span class="text">Folders</span>

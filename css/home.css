@@ -220,6 +220,19 @@ hr {
     justify-content: center;
     align-items: center;
 }
+
+.boxes .box3 i3 {
+    background: lightgreen;
+    font-size: 36px;
+    color: green; /* Changed color to green */
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .boxes .box .text{
     white-space: nowrap;
     font-size: 18px;
