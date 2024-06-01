@@ -122,7 +122,7 @@
 					<form id="forgot-pass-form">
 
 						<div class="form-group">
-							<input type="text" id="username3" name="username3" required>
+							<input type="text" id="username2" name="username2" required>
 							<span>Username</span>
 						</div>
 
@@ -134,7 +134,7 @@
 						<div class="form-group">
 							<input type="text" id="otp" name="otp" required>
 							<span>Verification Number</span>
-							<button type="button" class="otp-button" onclick="startCountdown()">Send</button>
+							<button type="button" class="otp-button" >Send</button>
 						</div>
 
 						<div class="form-group">
@@ -143,7 +143,7 @@
 						</div>
 
 						<div class="form-group">
-							<input type="password" id="confirm_password2" name="confirm_password2" required>
+							<input type="password" id="password2" name="password2" required>
 							<span>Confirm Password</span>
 						</div>
 
@@ -166,31 +166,61 @@
 </body>
 
 <script src= "./js/login.js"></script>
-<script>$('#forgot-pass-form').submit(function(e) {
+<script>
+$('#forgot-pass-form').submit(function(e) {
+	console.log('submitting resets');
     e.preventDefault();
     $('#submit-pass').attr('disabled', true).html('Resetting Password...');
     if ($(this).find('.alert-danger').length > 0)
         $(this).find('.alert-danger').remove();
     $.ajax({
-        url: 'ajax.php?action=forgot_password',
+        url: 'forgot_password.php',
         method: 'POST',
         data: $(this).serialize(),
+		dataType: 'json',
         error: function(err) {
             console.log(err);
             $('#submit-pass').removeAttr('disabled').html('Reset Password');
         },
         success: function(resp) {
-            if (resp.trim() == '1') { // Success case
+            if (resp.status == 'success') { // Success case
                 // Display success message or redirect to login page
                 alert('Password reset successful. Please login with your new password.');
                 window.location.href = 'login.php'; // Redirect to login page
-            } else if (resp.trim() == '0') { // Failure case
+            } else if (resp.status == 'error') { // Failure case
                 // Display error message
-                $('#forgot-pass-form').prepend('<div class="alert alert-danger">Password reset failed. Please try again.</div>');
+				
+                $('#forgot-pass-form').prepend('<div class="alert alert-danger">'+resp.message+'</div>');
                 $('#submit-pass').removeAttr('disabled').html('Reset Password');
             }
         }
     });
+});
+
+$('.otp-button').click(function(e) {
+	// Implement OTP generation and sending logic here
+	$.ajax({
+		url: 'send_otp.php',
+		method: 'POST',
+		data: $('#forgot-pass-form').serialize(),
+		dataType: 'json',
+		success: function(d) {
+			if (d.status == '1') { // Success case
+				// Display success message or redirect to login page
+				alert('OTP sent successfully!');
+				startCountdown(); // Start the countdown timer
+			} else if (d.status == '0') { // Failure case
+				// Display error message
+				alert(d.message);
+			} else {
+				// Handle other response cases
+				alert('An error occurred. Please try again later.');
+			}
+		},error: function(err) {
+			console.log(err);
+			console.log(err.responseText);
+		}
+	});
 });
 
 $(document).ready(function() {
@@ -212,10 +242,13 @@ $(document).ready(function() {
                 console.log(resp);
                 if (resp.status === 'success') {
                     // Reload the page if signup was successful
+					alert(resp.message);
                     location.reload();
                 } else {
                     // Handle error message display
                     // Example: $('#error-message').text(resp.message);
+					alert(resp.message);
+					$('#Sign-in').removeAttr('disabled').html('Sign Up');
                 }
             }
         });

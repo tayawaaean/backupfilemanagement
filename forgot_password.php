@@ -1,131 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Admin | Blog Site</title>
-    
-<?php include('./header.php'); ?>
-<?php 
+<?php
 session_start();
-if(isset($_SESSION['login_id']))
-header("location:index.php?page=home");
-?>
+include_once 'db_connect.php'; // Include your database connection file here
 
-</head>
-<style>
-    body{
-        width: 100%;
-        height: calc(100%);
-        /*background: #007bff;*/
+$response = array();
+
+if(isset($_POST['username2']) && isset($_POST['password2']) && isset($_POST['username3']) && isset($_POST['otp']) && isset($_POST['password3'])) {
+    $username = $_POST['username2'];
+    $otp = $_POST['otp'];
+    $new_password = md5($_POST['password2']); // Hashing the password using MD5
+    $confirm_password = md5($_POST['password3']);
+    $email = $_POST['username3'];
+    if($new_password != $confirm_password){
+        $response['status'] = 'error';
+        $response['message'] = 'Passwords do not match!';
+        echo json_encode($response);
+        exit;
     }
-    main#main{
-        width:100%;
-        height: calc(100%);
-        background:white;
+    // Sql query to check if the user exists
+    $sql = "SELECT * FROM users WHERE username = '$username' AND email = '$email'";
+    $result = $conn->query($sql);
+    if($result->num_rows > 0) {
+        //find otp code from user and verification table
+        //get id
+        $row = $result->fetch_assoc();
+        $id = $row['id'];
+        $sql = "SELECT * FROM verification WHERE id = '$id' AND otp = '$otp'";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0) {
+            //delete otp code from verification table
+            $sql = "DELETE FROM verification WHERE id = '$id' AND otp = '$otp'";
+            $conn->query($sql);
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Invalid OTP, Please send a new one!';
+            echo json_encode($response);
+            exit;
+        }
+        $sql = "UPDATE users SET password = '$new_password' WHERE username = '$username'";
+        if($conn->query($sql) === TRUE) {
+            $response['status'] = 'success';
+            $response['message'] = 'Password reset successfully';
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'Error resetting password';
+        }
+    } else {
+        $response['status'] = 'error';
+        $response['message'] = 'Invalid username or email address';
     }
-    #login-right{
-        position: absolute;
-        right:0;
-        width:40%;
-        height: calc(100%);
-        background:white;
-        display: flex;
-        align-items: center;
-    }
-    #login-left{
-        position: absolute;
-        left:0;
-        width:60%;
-        height: calc(100%);
-        background:#00000061;
-        display: flex;
-        align-items: center;
-    }
-    #login-right .card{
-        margin: auto
-    }
-    .logo {
-    margin: auto;
-    font-size: 8rem;
-    background: white;
-    padding: .5em 0.8em;
-    border-radius: 50% 50%;
-    color: #000000b3;
+    $conn->close();
+} else {
+    $response['status'] = 'error';
+    $response['message'] = 'Invalid request parameters';
 }
-</style>
 
-<body>
-
-
-  <main id="main" class=" alert-info">
-        <div id="login-left">
-            <div class="logo">
-                <i class="fa fa-share-alt"></i>
-            </div>
-        </div>
-        <div id="login-right">
-            <div class="card col-md-8">
-                <div class="card-body">
-                    <form id="forgot-password-form" >
-                        <div class="form-group">
-                            <label for="username" class="control-label">Username</label>
-                            <input type="text" id="username" name="username" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="new_password" class="control-label">New Password</label>
-                            <input type="password" id="new_password" name="new_password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm_new_password" class="control-label">Confirm New Password</label>
-                            <input type="password" id="confirm_new_password" name="confirm_new_password" class="form-control">
-                        </div>
-                        <center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Reset Password</button></center>
-                    </form>
-                    <div class="row mt-3">
-                        <div class="col-md-12 text-center">
-                            <a href="login.php" class="btn btn-link">Remembered your password? Login</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-   
-
-  </main>
-
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
-
-</body>
-<script>
-    $('#forgot-password-form').submit(function(e){
-        e.preventDefault()
-        $('#forgot-password-form button[type="button"]').attr('disabled',true).html('Resetting Password...');
-        if($(this).find('.alert-danger').length > 0 )
-            $(this).find('.alert-danger').remove();
-        $.ajax({
-            url:'ajax.php?action=forgot_password',
-            method:'POST',
-            data:$(this).serialize(),
-            error:err=>{
-                console.log(err)
-        $('#forgot-password-form button[type="button"]').removeAttr('disabled').html('Reset Password');
-
-            },
-            success:function(resp){
-                if(resp == 1){
-                    // Password reset successful, redirect or show successs message
-                    // For now, just refresh the page
-                    location.reload();
-                }else{
-                    $('#forgot-password-form').prepend('<div class="alert alert-danger">Password reset failed. Please try again.</div>')
-                    $('#forgot-password-form button[type="button"]').removeAttr('disabled').html('Reset Password');
-                }
-            }
-        })
-    })
-</script>    
-</html>
+echo json_encode($response);
+?>

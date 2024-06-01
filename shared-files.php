@@ -70,7 +70,6 @@ a.custom-menu-list span.icon{
     <div class="container">
 	<?php include('db_connect.php') ;
 	$files = $conn->query("SELECT f.*,u.name as uname FROM files f inner join users u on u.id = f.user_id where  f.is_public = 1 order by date(f.date_updated) desc");
-
 	?>
         <div class="activity">
             <div class="title">

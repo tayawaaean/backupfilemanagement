@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2024 at 09:33 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Jun 01, 2024 at 05:26 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +34,7 @@ CREATE TABLE `activity_log` (
   `DateTime` datetime NOT NULL,
   `Action` varchar(255) NOT NULL,
   `Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `activity_log`
@@ -47,7 +47,11 @@ INSERT INTO `activity_log` (`id`, `Author`, `job_title`, `DateTime`, `Action`, `
 (46, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-24 17:52:34', 'Folder Created', 'Created folder Okay'),
 (47, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-24 17:52:54', 'Folder Updated', 'Updated folder Okayed'),
 (48, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-24 17:57:21', 'File Renamed', 'Renamed file to FORM 8 WITH and COE.docx in folder ID 0'),
-(49, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-24 18:05:40', 'Shared a File', 'Shared file ID 20 with new description: testing');
+(49, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-24 18:05:40', 'Shared a File', 'Shared file ID 20 with new description: testing'),
+(50, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-29 14:14:17', 'Folder Created', 'Created folder Bruh'),
+(51, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-29 14:14:33', 'File Uploaded', 'Uploaded file Uracil.png in folder ID 0'),
+(52, 'Kenric Catiwa', 'Employee', '2024-05-29 14:20:45', 'Folder Created', 'Created folder Heya'),
+(53, 'Kenric Catiwa', 'Employee', '2024-05-29 14:21:00', 'File Uploaded', 'Uploaded file Adenine.png in folder ID 0');
 
 -- --------------------------------------------------------
 
@@ -65,7 +69,7 @@ CREATE TABLE `files` (
   `file_path` text NOT NULL,
   `is_public` tinyint(1) DEFAULT 0,
   `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `files`
@@ -81,7 +85,9 @@ INSERT INTO `files` (`id`, `name`, `description`, `user_id`, `folder_id`, `file_
 (18, 'Chapter-I', '', 8, 12, 'docx', '1715433660_Chapter-I.docx', 0, '2024-05-11 21:21:07'),
 (19, 'Chapter-I ||1', '', 8, 12, 'docx', '1715433900_Chapter-I.docx', 0, '2024-05-11 21:25:15'),
 (20, 'FORM 8 WITH and COE', 'testing', 5, 0, 'docx', '1716564060_FORM 8 WITH ENGINEER and COE.docx', 1, '2024-05-25 00:05:40'),
-(25, 'FORM 8 WITH ENGINEER and COE', 'test', 5, 14, 'docx', '1716565260_FORM 8 WITH ENGINEER and COE.docx', 0, '2024-05-24 23:41:57');
+(25, 'FORM 8 WITH ENGINEER and COE', 'test', 5, 14, 'docx', '1716565260_FORM 8 WITH ENGINEER and COE.docx', 0, '2024-05-24 23:41:57'),
+(26, 'Uracil', 'Rna', 5, 0, 'png', '1716984840_Uracil.png', 1, '2024-05-29 20:14:33'),
+(27, 'Adenine', 'yeah', 11, 0, 'png', '1716985260_Adenine.png', 1, '2024-05-29 20:21:00');
 
 -- --------------------------------------------------------
 
@@ -94,7 +100,7 @@ CREATE TABLE `folders` (
   `user_id` int(30) NOT NULL,
   `name` varchar(200) NOT NULL,
   `parent_id` int(30) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `folders`
@@ -112,7 +118,9 @@ INSERT INTO `folders` (`id`, `user_id`, `name`, `parent_id`) VALUES
 (11, 1, 'tite', 8),
 (12, 8, 'test', 0),
 (14, 5, 'Test', 0),
-(15, 5, 'Okayed', 0);
+(15, 5, 'Okayed', 0),
+(16, 5, 'Bruh', 0),
+(17, 11, 'Heya', 0);
 
 -- --------------------------------------------------------
 
@@ -134,18 +142,37 @@ CREATE TABLE `users` (
   `birthday` varchar(50) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `civil_status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `profile_pic`, `name`, `username`, `password`, `type`, `contact_number`, `email`, `address`, `position`, `birthday`, `gender`, `civil_status`) VALUES
-(5, 'profile_pics/profile_picture_206776.png', 'Aean Gabrielle D. Tayawa', 'tayawaaean', '202cb962ac59075b964b07152d234b70', 1, '', '', '', '', '', '', ''),
+(5, 'profile_pics/profile_picture_206776.png', 'Aean Gabrielle D. Tayawa', 'tayawaaean', '202cb962ac59075b964b07152d234b70', 1, '', 'Hello@gmail.com', '', '', '', '', ''),
 (8, 'profile_pics/profile_picture_550633.png', 'Micheal Jay Pedronan', 'mekel', '202cb962ac59075b964b07152d234b70', 2, '095668317230', 'mekel@gmail.com', 'Batac City', 'President', '2024-05-29', 'male', 'single'),
-(11, 'profile_picture_672602.png', 'Kenric Catiwa', 'kenken', '202cb962ac59075b964b07152d234b70', 2, '', '', '', '', '', '', ''),
-(13, '', 'Ryan Anthony Gabriel Adaya', 'ryan', '827ccb0eea8a706c4c34a16891f84e7b', 2, '', '', '', '', '', '', ''),
-(20, 'profile_pics/profile_picture_614861.jpg', 'Jandel Jade Tejada', 'jjadetejada', '202cb962ac59075b964b07152d234b70', 0, '', '', '', '', '', '', '');
+(11, 'profile_picture_672602.png', 'Kenric Catiwa', 'kenken', '202cb962ac59075b964b07152d234b70', 2, '', 'test@gmail.com', '', '', '', '', ''),
+(20, 'profile_pics/profile_picture_192054.png', 'Jandel Jade Tejada', 'jjadetejada', '202cb962ac59075b964b07152d234b70', 0, '', 'sample@gmail.com', '', '', '', '', ''),
+(22, '', 'Isa', 'Isa123', '81dc9bdb52d04dc20036dbd8313ed055', 0, '', 'fms_db@gmail.com', '', '', '', '', ''),
+(23, '', 'Isa2', 'Isa1234', '81dc9bdb52d04dc20036dbd8313ed055', 0, '', 'palisa@gmail.com', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verification`
+--
+
+CREATE TABLE `verification` (
+  `id` int(11) NOT NULL,
+  `otp` int(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `verification`
+--
+
+INSERT INTO `verification` (`id`, `otp`) VALUES
+(22, 142832);
 
 --
 -- Indexes for dumped tables
@@ -176,6 +203,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `verification`
+--
+ALTER TABLE `verification`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -183,25 +216,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `folders`
 --
 ALTER TABLE `folders`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
