@@ -34,3 +34,24 @@ document.getElementById("forgotpass").addEventListener("click", function() {
     document.getElementById("login-section").style.display = "none";
     document.getElementById("forgot-pass-section").style.display = "block";
 });
+
+function startCountdown() {
+    const button = document.querySelector('.otp-button');
+    let timeLeft = 30;
+
+    button.disabled = true;
+    button.classList.add('disabled');
+
+    const countdownInterval = setInterval(() => {
+        button.textContent = `Resend(${timeLeft})`;
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            clearInterval(countdownInterval);
+            button.textContent = 'Send';
+            button.disabled = false;
+            button.classList.remove('disabled');
+        }
+    }, 1000);
+}
+

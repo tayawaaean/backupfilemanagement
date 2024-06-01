@@ -84,6 +84,11 @@
 						</div>
 
 						<div class="form-group">
+							<input type="text" id="username3" name="username3" required>
+							<span>Email</span>
+						</div>
+
+						<div class="form-group">
 							<input type="password" id="password2" name="password2" required>
 							<span>Password</span>
 						</div>
@@ -119,6 +124,17 @@
 						<div class="form-group">
 							<input type="text" id="username3" name="username3" required>
 							<span>Username</span>
+						</div>
+
+						<div class="form-group">
+							<input type="text" id="username3" name="username3" required>
+							<span>Email</span>
+						</div>
+
+						<div class="form-group">
+							<input type="text" id="otp" name="otp" required>
+							<span>Verification Number</span>
+							<button type="button" class="otp-button" onclick="startCountdown()">Send</button>
 						</div>
 
 						<div class="form-group">

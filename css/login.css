@@ -153,6 +153,35 @@ main#main{
     margin-bottom: 1.5rem;
 
 }
+.otp-button{
+    position:absolute;
+    right: 0;
+    height: 100%;
+    background-color: var(--Torea_Bay);
+    color: white;
+    width: 100px;
+    font-weight: bold;
+    border-top-right-radius: 0.7em;
+    border-bottom-right-radius: 0.7em;
+    outline: none;
+    border: none;
+    transition: 0.2s;
+}
+
+.otp-button:focus{
+    outline: none;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
+.otp-button:hover{
+    background-color: white;
+    border: 1px solid var(--Torea_Bay);
+    color: var(--Torea_Bay);
+    transition: 0.2s;
+}
 
 .center-button #Login{
     margin-right: 5px;
