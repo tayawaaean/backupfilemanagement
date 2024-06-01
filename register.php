@@ -19,7 +19,7 @@ if (isset($_POST['name']) && isset($_POST['username2']) && isset($_POST['passwor
         $password = md5($password); // Hashing the password using MD5
 
         // Setting default values for profile_pic and type
-        $profile_pic = '';
+        $profile_pic = 'profile_pics/profile_picture_903472.png';
         $type = 0;
 
         // Check if the username already exists

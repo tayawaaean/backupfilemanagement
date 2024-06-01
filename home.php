@@ -229,6 +229,8 @@
                                             <?php echo $row['Author'],' ',' ',$row['Description']?>
                                         <?php } else if ($row['Action'] === "Folder Updated") {?>
                                             <?php echo $row['Author'],' ',' ',$row['Description']?>
+                                            <?php } else if ($row['Action'] === "User Deleted") {?>
+                                            <?php echo $row['Author'],' ',' ',$row['Description']?>
                                         <?php } else if ($row['Action'] === "File Renamed") {?>
                                             <?php echo $row['Author'],' ',' ',$row['Description']?>
                                         <?php } else if ($row['Action'] === "Document Deleted") {?>
