@@ -61,7 +61,7 @@
         </span>
         </div>
 		<div class="box box3" id="Folders">
-		<i2 class="material-symbols-outlined">folder_open</i2>
+		<i class="material-symbols-outlined">folder_open</i>
             <span class="text">
                 <span class="number"><?php echo $totalFolders; ?></span>
                 <span class="text">Folders</span>
@@ -70,120 +70,128 @@
     </div>
 <?php endif; ?>
 
-    </div>
-    <div class="container">
-        <div class="activity">
-            <div class="title">
-                <div class="act">
-                    <span class="material-symbols-outlined">history</span>
-                    <span class="text">Activity Log</span>
-                </div>
-            	<div class="buttons">
-					<button id="dropdown1" class="dropdown-button">
-						<i class='bx bx-user'></i>
-					</button>               
-					<ul class="menu" id="Author">
-						<li data-author="None">None</li>
-						<?php if($_SESSION['login_type'] == 1): ?>   
-						<?php 
-							$result = $conn->query("SELECT DISTINCT Author FROM activity_log");
-							while ($row = $result->fetch_assoc()): 
-						?>
-						<li data-author="<?php echo $row['Author']?>"><?php echo $row['Author']?></li>
-						<?php endwhile?>
-						<?php endif; ?>
-					</ul>
-					<button id="dropdown2" class="dropdown-button">
-						<i class='bx bxs-calendar' ></i>
-					</button>                            
-					<ul class="menu">
-						<li data-month="None">None</li>
-						<li data-month="January">January</li>
-						<li data-month="February">February</li>
-						<li data-month="March">March</li>
-						<li data-month="April">April</li>
-						<li data-month="May">May</li>
-						<li data-month="June">June</li>
-						<li data-month="July">July</li>
-						<li data-month="August">August</li>
-						<li data-month="September">September</li>
-						<li data-month="October">October</li>
-						<li data-month="November">November</li>
-						<li data-month="December">December</li>
-					</ul>
-				</div>
-				<div class="bottom-search">
-					<div class="search">
-						<i class="uil uil-search"></i>
-						<input id="custom-search" type="text" placeholder="Search...">
-					</div>
-				</div>
+<div class="container">
+    <div class="activity">
+        <div class="title">
+            <div class="act">
+                <span class="material-symbols-outlined">history</span>
+                <span class="text">Activity Log</span>
             </div>
-			<div class="table-container">
-				<div class="dashboard-table-wrapper">
-				<?php if($_SESSION['login_type'] == 1): ?>
-					<table class="table" id="ActivityLog">
-						<thead>
-							<tr>
-								<th>Author</th>
-								<th>Date</th>
-								<th>Time</th>
-								<th>Action</th>
-								<th>Description</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php 
-							// Retrieve the name from the users table based on the username
-							$nameQuery = $conn->query("SELECT name FROM users");
-							if ($nameQuery && $nameQuery->num_rows > 0) {
-								$name = $nameQuery->fetch_assoc()['name'];
+            <div class="buttons">
+                <button id="dropdown1" class="dropdown-button">
+                    <i class='bx bx-user'></i>
+                </button>
+                <ul class="menu" id="Author">
+                    <li data-author="None">None</li>
+                    <?php if($_SESSION['login_type'] == 1): ?>   
+                    <?php 
+                        $result = $conn->query("SELECT DISTINCT Author FROM activity_log");
+                        while ($row = $result->fetch_assoc()): 
+                    ?>
+                    <li data-author="<?php echo $row['Author']?>"><?php echo $row['Author']?></li>
+                    <?php endwhile?>
+                    <?php endif; ?>
+                </ul>
+                <button id="dropdown2" class="dropdown-button">
+                    <i class='bx bxs-calendar'></i>
+                </button>
+                <ul class="menu">
+                    <li data-month="None">None</li>
+                    <li data-month="January">January</li>
+                    <li data-month="February">February</li>
+                    <li data-month="March">March</li>
+                    <li data-month="April">April</li>
+                    <li data-month="May">May</li>
+                    <li data-month="June">June</li>
+                    <li data-month="July">July</li>
+                    <li data-month="August">August</li>
+                    <li data-month="September">September</li>
+                    <li data-month="October">October</li>
+                    <li data-month="November">November</li>
+                    <li data-month="December">December</li>
+                </ul>
+            </div>
+            <div class="bottom-search">
+                <div class="search">
+                    <i class="uil uil-search"></i>
+                    <input id="custom-search" type="text" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+    	<button id="edit-toggle" class="edit-button">Edit</button>
+    		<div class="edit-controls">
+		<button id="select-all-btn" class="select-button">Select All</button>
+        <button id="delete-selected" class="delete-button">Delete Selected</button>
+        <button id="delete-all" class="delete-button">Delete All</button>
+    </div>
+</div>
 
-								// Fetch activity log entries based on the author's name
-								$result = $conn->query("SELECT * FROM activity_log");
-								while ($row = $result->fetch_assoc()): 
-									$dateTime = $row['DateTime'];
-									$date = date("F j, Y", strtotime($dateTime));
-									$time = date("h:i A", strtotime($dateTime));
-							?>
-								<tr>
-									<td><?php echo $row['Author']?></td>
-									<td><?php echo date('F j, Y', strtotime($row['DateTime'])); ?></td>
-									<td><?php echo $time?></td>
-									<td><?php echo $row['Action']?></td>
-									<td>
-									<div class="description">
-									<?php if($row['Action'] === "New User Approved") { ?>
-											<?php echo $row['Author'],' ', 'approved the registration of' ,' ',$row['Description'],' ','.'?>
-											<?php } else if ($row['Action'] === "File Uploaded") {?>
-											<?php echo $row['Author'],' ',$row['Description'],' folder.'?>
-											<?php } else if ($row['Action'] === "Folder Deleted") {?>
-											<?php echo $row['Author'],' ',' ',$row['Description']?>
-											<?php } else if ($row['Action'] === "Shared a File") {?>
-											<?php echo $row['Author'],' ',' ',$row['Description']?>
-											<?php } else if ($row['Action'] === "Folder Created") {?>
-											<?php echo $row['Author'],' ',' ',$row['Description']?>
-											<?php } else if ($row['Action'] === "Folder Updated") {?>
-											<?php echo $row['Author'],' ',' ',$row['Description']?>
-											<?php } else if ($row['Action'] === "File Renamed") {?>
-											<?php echo $row['Author'],' ',' ',$row['Description']?>
-											<?php } else if ($row['Action'] === "Document Deleted") {?>
-											<?php echo $row['Author'],' ','deleted the document',' ',$row['Description'],'.'?>
-											<?php } else if ($row['Action'] === "Updated User") {?>
-												<?php echo $row['Author'],' ','Update user',' ',$row['Description'],'.'?>
-											<?php }?>
-										</div>
-									</td>
-								</tr>
-								<?php endwhile; ?>
-								<?php } // <-- Missing closing bracket for if block ?>
-							</tbody>
+        <div class="table-container">
+            <div class="dashboard-table-wrapper">
+                <?php if($_SESSION['login_type'] == 1): ?>
+                    <table class="table" id="ActivityLog">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all" style="display: none;"></th>
+                                <th>Author</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $nameQuery = $conn->query("SELECT name FROM users");
+                            if ($nameQuery && $nameQuery->num_rows > 0) {
+                                $name = $nameQuery->fetch_assoc()['name'];
+                                $result = $conn->query("SELECT * FROM activity_log");
+                                while ($row = $result->fetch_assoc()): 
+                                    $dateTime = $row['DateTime'];
+                                    $date = date("F j, Y", strtotime($dateTime));
+                                    $time = date("h:i A", strtotime($dateTime));
+                            ?>
+                            <tr>
+                                <td><input type="checkbox" class="select-row" data-id="<?php echo $row['id']; ?>" style="display: none;"></td>
+                                <td><?php echo $row['Author']?></td>
+                                <td><?php echo date('F j, Y', strtotime($row['DateTime'])); ?></td>
+                                <td><?php echo $time?></td>
+                                <td><?php echo $row['Action']?></td>
+                                <td>
+                                    <div class="description">
+                                        <?php if($row['Action'] === "New User Approved") { ?>
+                                            <?php echo $row['Author'],' ', 'approved the registration of' ,' ',$row['Description'],' ','.'?>
+                                        <?php } else if ($row['Action'] === "File Uploaded") {?>
+                                            <?php echo $row['Author'],' ',$row['Description'],' folder.'?>
+                                        <?php } else if ($row['Action'] === "Folder Deleted") {?>
+                                            <?php echo $row['Author'],' ',' ',$row['Description']?>
+                                        <?php } else if ($row['Action'] === "Shared a File") {?>
+                                            <?php echo $row['Author'],' ',' ',$row['Description']?>
+                                        <?php } else if ($row['Action'] === "Folder Created") {?>
+                                            <?php echo $row['Author'],' ',' ',$row['Description']?>
+                                        <?php } else if ($row['Action'] === "Folder Updated") {?>
+                                            <?php echo $row['Author'],' ',' ',$row['Description']?>
+                                        <?php } else if ($row['Action'] === "File Renamed") {?>
+                                            <?php echo $row['Author'],' ',' ',$row['Description']?>
+                                        <?php } else if ($row['Action'] === "Document Deleted") {?>
+                                            <?php echo $row['Author'],' ','deleted the document',' ',$row['Description'],'.'?>
+                                        <?php } else if ($row['Action'] === "Updated User") {?>
+                                            <?php echo $row['Author'],' ','Update user',' ',$row['Description'],'.'?>
+                                        <?php }?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endwhile; ?>
+                            <?php } ?>
+                        </tbody>
                     </table>
-				<?php endif; ?>
+                <?php endif; ?>
 				<?php if($_SESSION['login_type'] == 2): ?>
 					<table class="table" id="ActivityLog">
 						<thead>
 							<tr>
+								<th><input type="checkbox" id="select-all" style="display: none;"></th>
 								<th>Author</th>
 								<th>Date</th>
 								<th>Time</th>
@@ -209,6 +217,7 @@
 									$time = date("h:i A", strtotime($dateTime));
 							?>
 								<tr>
+									<td><input type="checkbox" class="select-row" data-id="<?php echo $row['id']; ?>" style="display: none;"></td>
 									<td><?php echo $row['Author']?></td>
 									<td><?php echo date('F j, Y', strtotime($row['DateTime'])); ?></td>
 									<td><?php echo $time?></td>
@@ -241,10 +250,100 @@
                     </table>
 				<?php endif; ?>
 				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+<script>document.addEventListener('DOMContentLoaded', function () {
+    const editToggle = document.getElementById('edit-toggle');
+    const selectAllCheckbox = document.getElementById('select-all');
+    const checkboxes = document.querySelectorAll('.select-row');
+    const deleteSelectedButton = document.getElementById('delete-selected');
+    const deleteAllButton = document.getElementById('delete-all');
+    const editControls = document.querySelector('.edit-controls');
+    const selectAllBtn = document.getElementById('select-all-btn');
+
+    editToggle.addEventListener('click', function () {
+        const isEditing = editToggle.textContent === 'Done';
+
+        editToggle.textContent = isEditing ? 'Edit' : 'Done';
+        editControls.style.display = isEditing ? 'none' : 'block';
+        selectAllCheckbox.style.display = isEditing ? 'none' : 'inline-block';
+        checkboxes.forEach(checkbox => {
+            checkbox.style.display = isEditing ? 'none' : 'inline-block';
+        });
+    });
+
+    selectAllBtn.addEventListener('click', function () {
+        const allSelected = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = !allSelected;
+        });
+        selectAllCheckbox.checked = !allSelected;
+    });
+
+    selectAllCheckbox.addEventListener('change', function () {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+    });
+
+    deleteSelectedButton.addEventListener('click', function () {
+        const selectedIds = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.dataset.id);
+        
+        if (selectedIds.length > 0) {
+            if (confirm('Are you sure you want to delete selected logs?')) {
+                fetch('delete_logs.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ids: selectedIds })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        selectedIds.forEach(id => {
+                            document.querySelector(`.select-row[data-id="${id}"]`).closest('tr').remove();
+                        });
+                    } else {
+                        alert('Failed to delete selected logs.');
+                    }
+                });
+            }
+        } else {
+            alert('No logs selected.');
+        }
+    });
+
+    deleteAllButton.addEventListener('click', function () {
+        if (confirm('Are you sure you want to delete all logs?')) {
+            fetch('delete_logs.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ deleteAll: true })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelectorAll('.table tbody tr').forEach(row => row.remove());
+                } else {
+                    alert('Failed to delete all logs.');
+                }
+            });
+        }
+    });
+});
+
+
+</script>
 
 <script>
 // Selecting the dropdown buttons and menus

@@ -78,7 +78,7 @@ h2{
 .dash-content .title{
     display: flex;
     align-items: center;
-    margin: 0px 0 30px 0;
+    margin: 0px 0 0px 0;
     justify-content: space-between;
 }
 .dash-content .title i{
@@ -122,6 +122,36 @@ h2{
     text-align: left;
     border-right: 1px solid #DDD;
 }
+
+/* Table Design Activity Log */
+
+.dataTables_wrapper .dataTables_filter {
+    display: none;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+}
+
+.edit-controls {
+    display: none;
+    margin-bottom: 0;
+}
+
+.edit-mode .edit-controls {
+    display: flex;
+}
+
+.edit-button, .delete-button, .select-button {
+    margin: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+
+
 
 /* Adjust the minimum width as needed */
 .table th:nth-child(2), 
@@ -531,6 +561,7 @@ margin-bottom: 10px;
     .table-container {
         overflow-x: auto;
         max-width: 414px;
+        height: 150px;
     }
     .table{
         width: 750px;
@@ -572,8 +603,3 @@ margin-bottom: 10px;
     }
 }
 
-/* Table Design Activity Log */
-
-	.dataTables_wrapper .dataTables_filter {
-        display: none;
-	}
