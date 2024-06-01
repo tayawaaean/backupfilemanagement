@@ -18,7 +18,7 @@ body{
 
 .sidebar{
     position: absolute;
-    width: 85px;
+    width: 320px;
     height: 100vh;
     background: #f0f0f0;
     transition: 0.5s;
@@ -72,7 +72,7 @@ body{
     margin-bottom: 50px;
 }
 
-.sidebar ul li.logo .text{
+.sidebar ul li.logo .text-nav{
     font-size: 1.2em;
     font-weight: 500;
 }
@@ -101,7 +101,7 @@ body{
     color: #fff;
 }
 
-.sidebar ul li.active a .text{
+.sidebar ul li.active a .text-nav{
     color: var(--Torea_Bay)
 }
 
@@ -120,9 +120,9 @@ body{
 }
 
 
-.sidebar ul li a .text{
+.sidebar ul li a .text-nav{
     position: relative;
-    height: 70px;
+    height: 50px;
     display: flex;
     align-items: center;
     font-size: 1em;
@@ -132,10 +132,11 @@ body{
     letter-spacing: 0.05em;
     transition: 0.5s;
     padding-top: 20px;
+    overflow-wrap: break-word;
 }
 
 .sidebar ul li:hover a .icon,
-.sidebar ul li:hover a .text{
+.sidebar ul li:hover a .text-nav{
     color: var(--Golden_Dream);
 }
 
@@ -219,14 +220,44 @@ body{
 }
 
 main#view-panel{
-    margin-left: 100px; 
-    width:calc(100% - 100px);
+    margin-left: 350px; 
+    width:calc(100% - 350px);
     padding: .5em;
     transition:0.5s;
 }
 
-main#view-panel.menu-active {
-    margin-left: 350px; 
-    width: calc(100% - 350px);
-    transition:0.5s; 
+.sidebar ul li a .text-head{
+    position: relative;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: var(--Torea_Bay);
+    padding-left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    padding-top: 40px;
+}
+
+.sidebar ul li a .text-wrapper {
+    width: 200px; /* Set a width for the container to ensure text wrapping */
+}
+
+.sidebar ul li a .text-wrapper .text-name {
+    position: relative;
+    height: 50px;
+    font-size: 1em;
+    color: var(--Torea_Bay);
+    padding-left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    padding-top: 20px;
+    overflow-wrap: break-word; /* Ensure word breaking */
+    word-wrap: break-word; /* Fallback for older browsers */
+    word-break: break-word; /* Ensure word breaking */
+    white-space: normal; /* Ensure normal white-space handling */
+    display: flex;
+    align-items: center;
 }
