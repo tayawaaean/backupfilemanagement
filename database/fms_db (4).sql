@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 05:26 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Jun 01, 2024 at 07:27 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +34,7 @@ CREATE TABLE `activity_log` (
   `DateTime` datetime NOT NULL,
   `Action` varchar(255) NOT NULL,
   `Description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `activity_log`
@@ -51,7 +51,11 @@ INSERT INTO `activity_log` (`id`, `Author`, `job_title`, `DateTime`, `Action`, `
 (50, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-29 14:14:17', 'Folder Created', 'Created folder Bruh'),
 (51, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-05-29 14:14:33', 'File Uploaded', 'Uploaded file Uracil.png in folder ID 0'),
 (52, 'Kenric Catiwa', 'Employee', '2024-05-29 14:20:45', 'Folder Created', 'Created folder Heya'),
-(53, 'Kenric Catiwa', 'Employee', '2024-05-29 14:21:00', 'File Uploaded', 'Uploaded file Adenine.png in folder ID 0');
+(53, 'Kenric Catiwa', 'Employee', '2024-05-29 14:21:00', 'File Uploaded', 'Uploaded file Adenine.png in folder ID 0'),
+(54, 'Micheal Jay Pedronan', 'Employee', '2024-06-01 18:49:02', 'Folder Created', 'Created folder testing'),
+(55, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-06-01 18:49:30', 'New User Approved', 'Isa as Admin'),
+(56, 'Aean Gabrielle D. Tayawa', 'Admin', '2024-06-02 00:52:28', 'New User Approved', 'Isa2 as Admin'),
+(57, 'Admin', '', '2024-06-02 00:57:23', 'User Deleted', 'Deleted user Jandel Jade Tejada');
 
 -- --------------------------------------------------------
 
@@ -69,7 +73,7 @@ CREATE TABLE `files` (
   `file_path` text NOT NULL,
   `is_public` tinyint(1) DEFAULT 0,
   `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `files`
@@ -100,7 +104,7 @@ CREATE TABLE `folders` (
   `user_id` int(30) NOT NULL,
   `name` varchar(200) NOT NULL,
   `parent_id` int(30) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `folders`
@@ -120,7 +124,8 @@ INSERT INTO `folders` (`id`, `user_id`, `name`, `parent_id`) VALUES
 (14, 5, 'Test', 0),
 (15, 5, 'Okayed', 0),
 (16, 5, 'Bruh', 0),
-(17, 11, 'Heya', 0);
+(17, 11, 'Heya', 0),
+(18, 8, 'testing', 0);
 
 -- --------------------------------------------------------
 
@@ -142,19 +147,18 @@ CREATE TABLE `users` (
   `birthday` varchar(50) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `civil_status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `profile_pic`, `name`, `username`, `password`, `type`, `contact_number`, `email`, `address`, `position`, `birthday`, `gender`, `civil_status`) VALUES
-(5, 'profile_pics/profile_picture_206776.png', 'Aean Gabrielle D. Tayawa', 'tayawaaean', '202cb962ac59075b964b07152d234b70', 1, '', 'Hello@gmail.com', '', '', '', '', ''),
+(5, 'profile_pics/profile_picture_206776.png', 'Aean Gabrielle D. Tayawa', 'tayawaaean', '202cb962ac59075b964b07152d234b70', 1, '', 'tayawaaean@gmail.com', '', '', '', '', ''),
 (8, 'profile_pics/profile_picture_550633.png', 'Micheal Jay Pedronan', 'mekel', '202cb962ac59075b964b07152d234b70', 2, '095668317230', 'mekel@gmail.com', 'Batac City', 'President', '2024-05-29', 'male', 'single'),
-(11, 'profile_picture_672602.png', 'Kenric Catiwa', 'kenken', '202cb962ac59075b964b07152d234b70', 2, '', 'test@gmail.com', '', '', '', '', ''),
-(20, 'profile_pics/profile_picture_192054.png', 'Jandel Jade Tejada', 'jjadetejada', '202cb962ac59075b964b07152d234b70', 0, '', 'sample@gmail.com', '', '', '', '', ''),
-(22, '', 'Isa', 'Isa123', '81dc9bdb52d04dc20036dbd8313ed055', 0, '', 'fms_db@gmail.com', '', '', '', '', ''),
-(23, '', 'Isa2', 'Isa1234', '81dc9bdb52d04dc20036dbd8313ed055', 0, '', 'palisa@gmail.com', '', '', '', '', '');
+(11, 'profile_pics/profile_picture_209216.png', 'Kenric Catiwa', 'kenken', '202cb962ac59075b964b07152d234b70', 2, '', 'test@gmail.com', '', '', '', '', ''),
+(22, 'profile_pics/profile_picture_863473.png', 'Isa', 'Isa123', '81dc9bdb52d04dc20036dbd8313ed055', 2, '', 'fms_db@gmail.com', '', '', '', '', ''),
+(23, 'profile_pics/profile_picture_403235.png', 'Isa2', 'Isa1234', '81dc9bdb52d04dc20036dbd8313ed055', 2, '', 'palisa@gmail.com', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -165,14 +169,7 @@ INSERT INTO `users` (`id`, `profile_pic`, `name`, `username`, `password`, `type`
 CREATE TABLE `verification` (
   `id` int(11) NOT NULL,
   `otp` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `verification`
---
-
-INSERT INTO `verification` (`id`, `otp`) VALUES
-(22, 142832);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -216,7 +213,7 @@ ALTER TABLE `verification`
 -- AUTO_INCREMENT for table `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `files`
@@ -228,13 +225,13 @@ ALTER TABLE `files`
 -- AUTO_INCREMENT for table `folders`
 --
 ALTER TABLE `folders`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
